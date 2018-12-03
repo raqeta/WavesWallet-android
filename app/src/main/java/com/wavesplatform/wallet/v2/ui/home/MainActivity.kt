@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.evgenii.jsevaluator.interfaces.JsCallback
 import com.wavesplatform.wallet.App
 import com.wavesplatform.wallet.R
 import com.wavesplatform.wallet.v1.ui.auth.EnvironmentManager
@@ -31,10 +32,7 @@ import com.wavesplatform.wallet.v2.ui.home.profile.ProfileFragment
 import com.wavesplatform.wallet.v2.ui.home.profile.backup.BackupPhraseActivity
 import com.wavesplatform.wallet.v2.ui.home.quick_action.QuickActionBottomSheetFragment
 import com.wavesplatform.wallet.v2.ui.home.wallet.WalletFragment
-import com.wavesplatform.wallet.v2.util.Analytics
-import com.wavesplatform.wallet.v2.util.launchActivity
-import com.wavesplatform.wallet.v2.util.makeLinks
-import com.wavesplatform.wallet.v2.util.notNull
+import com.wavesplatform.wallet.v2.util.*
 import kotlinx.android.synthetic.main.activity_main_v2.*
 import kotlinx.android.synthetic.main.dialog_account_first_open.view.*
 import pers.victor.ext.*
@@ -248,7 +246,31 @@ class MainActivity : BaseDrawerActivity(), MainView, TabLayout.OnTabSelectedList
                 toolbar_general.title = getString(R.string.dex_toolbar_title)
             }
             QUICK_ACTION_SCREEN -> {
-                showQuickActionDialog()
+                //showQuickActionDialog()
+
+                val jsEvaluator = JSEvaluator(this)
+                val text = "Hello worlld!"
+                val pass = "11111111"
+                jsEvaluator.encryptAndResult(pass, text, object : JsCallback {
+
+                    override fun onResult(encrypted: String?) {
+                        jsEvaluator.decryptAndResult(pass, encrypted ?: "", object : JsCallback {
+
+                            override fun onResult(encrypted: String?) {
+                                println("OK - $encrypted")
+                            }
+
+                            override fun onError(error: String?) {
+                                println(error)
+                            }
+                        })
+                    }
+
+                    override fun onError(error: String?) {
+                        println(error)
+                    }
+                })
+
             }
             HISTORY_SCREEN -> {
                 showNewTabFragment(fragments[HISTORY_SCREEN])

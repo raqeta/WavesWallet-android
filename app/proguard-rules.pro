@@ -371,6 +371,12 @@
 -dontwarn com.android.installreferrer
 -keep class com.appsflyer.** { *; }
 
+# js-evaluator-for-android
+-keepattributes JavascriptInterface
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
 -dontwarn com.samsung.android.sdk.**
 -dontwarn afu.org.checkerframework.checker.**
 -dontnote com.samsung.android.sdk.**

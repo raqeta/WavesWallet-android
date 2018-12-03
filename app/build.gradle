@@ -161,7 +161,7 @@ ext {
     supportVersion = '28.0.0'
     rxJavaVersion = '2.2.2'
     rxAndroidVersion = '2.1.0'
-    daggerVersion = '2.17'
+    daggerVersion = '2.19'
     retrofitVersion = '2.4.0'
     okHttpVersion = '3.11.0'
     glideVersion = '4.8.0'
@@ -332,6 +332,8 @@ dependencies {
 
     implementation 'com.appsflyer:af-android-sdk:4.8.18@aar'
     implementation 'com.android.installreferrer:installreferrer:1.0'
+
+    implementation 'com.github.evgenyneu:js-evaluator-for-android:v5.0.0'
 }
 
 buildscript {
