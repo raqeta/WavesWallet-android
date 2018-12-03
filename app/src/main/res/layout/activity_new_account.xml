@@ -1,0 +1,204 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        android:fontFamily="@font/roboto"
+        app:titleTextAppearance="@style/Toolbar.Title" />
+
+    <LinearLayout
+        android:id="@+id/linear_top_avatar_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_view"
+        android:layout_marginTop="16dp"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/new_account_avatar_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:lineSpacingExtra="2sp"
+            android:text="@string/new_account_avatar_description"
+            android:textColor="@color/basic700"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:id="@+id/linear_images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:animateLayoutChanges="true"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/image_avatar_1"
+                android:layout_width="0dp"
+                app:srcCompat="@drawable/shape_white_oval"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/image_avatar_2"
+                android:layout_width="0dp"
+                app:srcCompat="@drawable/shape_white_oval"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/image_avatar_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                app:srcCompat="@drawable/shape_white_oval"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/image_avatar_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true" />
+
+            <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/shape_white_oval"
+                android:id="@+id/image_avatar_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linear_top_avatar_block"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <com.wavesplatform.wallet.v2.ui.custom.TopRightErrorTextInputLayout
+            android:id="@+id/til_account_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:textColorHint="@color/basic500"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edit_account_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/accent50"
+                android:hint="@string/new_account_account_name_hint"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLength="20"
+                android:nextFocusForward="@id/edit_create_password"
+                android:paddingBottom="20dp"
+                android:singleLine="true"
+                android:textColorHint="@color/basic500" />
+        </com.wavesplatform.wallet.v2.ui.custom.TopRightErrorTextInputLayout>
+
+        <com.wavesplatform.wallet.v2.ui.custom.TopRightErrorTextInputLayout
+            android:id="@+id/til_create_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColorHint="@color/basic500"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/TextLabel"
+            app:passwordToggleDrawable="@drawable/show_password_selector"
+            app:passwordToggleEnabled="true">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edit_create_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/accent50"
+                android:hint="@string/new_account_create_password_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:nextFocusForward="@id/edit_confirm_password"
+                android:paddingBottom="20dp"
+                android:singleLine="true"
+                android:textColorHint="@color/basic500" />
+        </com.wavesplatform.wallet.v2.ui.custom.TopRightErrorTextInputLayout>
+
+        <com.wavesplatform.wallet.v2.ui.custom.TopRightErrorTextInputLayout
+            android:id="@+id/til_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColorHint="@color/basic500"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/TextLabel"
+            app:passwordToggleDrawable="@drawable/show_password_selector"
+            app:passwordToggleEnabled="true">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edit_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/accent50"
+                android:hint="@string/new_account_confirm_password_hint"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:paddingBottom="20dp"
+                android:singleLine="true"
+                android:textColorHint="@color/basic500" />
+        </com.wavesplatform.wallet.v2.ui.custom.TopRightErrorTextInputLayout>
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_create_account"
+        style="@style/WavesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/new_account_continue" />
+
+
+</RelativeLayout>

@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".v2.ui.auth.passcode.enter.EnterPassCodeActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        android:fontFamily="@font/roboto"
+        app:titleTextAppearance="@style/Toolbar.Title" />
+
+    <ImageView
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_8sdp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_topbar_logout"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/toolbar_view"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_passcode_title"
+        />
+
+    <TextView
+        android:id="@+id/text_subtitle"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/text_title"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/basic500"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="f44735ac21178db09087157f4fa87a10"
+        />
+
+    <com.wavesplatform.wallet.v2.ui.custom.PinDotsLayout
+        android:id="@+id/pdl_dots"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/text_subtitle"
+        android:layout_height="wrap_content"/>
+
+    <com.wavesplatform.wallet.v2.ui.custom.PassCodeEntryKeypad
+        android:id="@+id/pass_keypad"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="82dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/text_forgot_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_above="@+id/text_use_acc_password"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/basic500"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_passcode_forgot_passcode"
+        />
+
+    <TextView
+        android:id="@+id/text_use_acc_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="14sp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/black"
+        android:text="@string/enter_passcode_use_account_password"
+        />
+
+</RelativeLayout>

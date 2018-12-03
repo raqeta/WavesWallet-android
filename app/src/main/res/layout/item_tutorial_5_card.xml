@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scroll_root"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?android:actionBarSize"
+            android:lineSpacingExtra="10sp"
+            android:text="@string/card_tutorial_5_title"
+            android:textColor="@color/disabled500"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto_bold" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/view_dashed"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/text_title"
+            android:layout_marginTop="14dp"
+            android:layerType="software"
+            android:src="@drawable/shape_dashed_line" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/image_mailopen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_dashed"
+            android:layout_marginTop="24dp"
+            app:srcCompat="@drawable/ic_mailopen" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_mailopen_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_mailopen"
+            android:layout_marginTop="14dp"
+            android:lineSpacingExtra="4sp"
+            android:text="@string/card_tutorial_6_description_mailopen"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:fontFamily="@font/roboto" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/image_refreshbrowser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_mailopen_description"
+            android:layout_marginTop="24dp"
+            app:srcCompat="@drawable/ic_refreshbrowser" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_refreshbrowser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_refreshbrowser"
+            android:layout_marginTop="14dp"
+            android:lineSpacingExtra="4sp"
+            android:text="@string/card_tutorial_6_description_refreshbrowser"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:fontFamily="@font/roboto" />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/image_os"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_refreshbrowser"
+            android:layout_marginTop="24dp"
+            app:srcCompat="@drawable/ic_os" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_os_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_os"
+            android:layout_marginTop="14dp"
+            android:lineSpacingExtra="4sp"
+            android:text="@string/card_tutorial_7_description_os"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/image_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_os_description"
+            android:layout_marginTop="24dp"
+            app:srcCompat="@drawable/ic_wifi" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_wifi"
+            android:layout_marginTop="14dp"
+            android:lineSpacingExtra="4sp"
+            android:text="@string/card_tutorial_7_description_wifi"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto" />
+
+    </RelativeLayout>
+
+</ScrollView>

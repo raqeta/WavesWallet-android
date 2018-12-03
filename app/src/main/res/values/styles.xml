@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="BaseTheme">
         <!-- <v21 specific stuff here -->
@@ -30,231 +30,138 @@
         <item name="autoCompleteTextViewStyle">@style/CursorColor</item>
     </style>
 
+    <style name="AppThemeV2" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/submit400</item>
+        <item name="colorPrimaryDark">@color/submit700</item>
+        <item name="colorAccent">@color/submit400</item>
+        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="drawerArrowStyle">@style/DrawerIconWhite</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="actionMenuTextAppearance">@style/MenuItemTextAppearance</item>
+    </style>
+
+    <style name="SubmitEditText">
+        <item name="colorControlNormal">@color/accent50</item>
+        <item name="colorControlActivated">@color/submit400</item>
+        <item name="colorControlHighlight">@color/submit400</item>
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/basic500</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Toolbar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="MenuItemTextAppearance" parent="android:TextAppearance.Holo.Widget.ActionBar.Menu">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="actionMenuTextColor">@color/black</item>
+    </style>
+
+    <style name="DrawerIconWhite" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="AppThemeV2.NoActionBar" parent="AppThemeV2">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <style name="AppThemeV2.NoActionBar.Translucent" parent="AppThemeV2.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="AppThemeV2.NoActionBar.Translucent.DarkStatusBar" parent="AppThemeV2.NoActionBar.Translucent">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+    <style name="AppThemeV2.AssetsSoring" parent="AppThemeV2.NoActionBar.Translucent.DarkStatusBar">
+        <item name="actionMenuTextColor">@color/disabled900</item>
+        <item name="actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>
+    </style>
+
+    <style name="AppTheme.Widget.ActionButton" parent="@style/Widget.AppCompat.ActionButton">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionMenuTextColor">@color/black</item>
+    </style>
+
+    <style name="AppThemeV2.NoActionBar.Translucent.WhiteStatusBar" parent="AppThemeV2.NoActionBar.Translucent">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <style name="AppThemeV2.NoActionBar.Translucent.Fullscreen" parent="AppThemeV2.NoActionBar.Translucent.WhiteStatusBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppThemeV2.NoActionBar.Translucent.Splash" parent="AppThemeV2.NoActionBar.Translucent.Fullscreen">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="WavesButton" parent="android:style/Widget.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:background">@drawable/selector_waves_primary_button</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
     <style name="CursorColor" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textCursorDrawable">@drawable/cursor</item>
     </style>
 
-
-    <style name="PlaceOrderDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <!-- Used for the buttons -->
-        <item name="colorAccent">@color/blockchain_blue</item>
-        <!-- Used for the title and text -->
-        <item name="android:textColorPrimary">#FFFFFF</item>
-        <!-- Used for the background -->
-        <item name="android:background">@color/dex_place_order_dialog_bg</item>
-    </style>
-
-
-    <style name="AppTheme.MainActivity">
-        <!-- Only exists to prevent issues with pre-21 devices, see values-v21 -->
-    </style>
-
-    <style name="AppTheme.ReceiveQrWindow">
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-    </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@android:color/white</item>
     </style>
 
-    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <!-- Used for the buttons -->
-        <item name="colorAccent">@color/blockchain_blue</item>
-        <!-- Used for the title and text -->
-        <item name="android:textColorPrimary">@color/black</item>
-    </style>
-
-    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:colorBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.5</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-    </style>
-
-    <style name="AlertDialogStyle.NoTitle">
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="MarketsCheckbox">
-        <item name="colorAccent">@color/dex_markets_checkbox</item>
-    </style>
-
-    <style name="PasswordChangeDialogEditText">
+    <style name="PassCodeEntryButtonNumberText">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">70</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:focusable">true</item>
-        <item name="android:focusableInTouchMode">true</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:password">true</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textCursorDrawable">@null</item>
-        <item name="android:inputType">textPassword</item>
-        <item name="android:textColor">@color/blockchain_grey</item>
-    </style>
-
-    <style name="PasswordChangeDialogEditTextLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">56dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-
-    <style name="PasswordChangeDialogFieldLabel">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">30</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <style name="CustomDialogButton" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:minWidth">64dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:theme">@style/PlainTheme</item>
-    </style>
-
-    <style name="PlainTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- No colors defined here for default styling on AlertDialog buttons -->
-    </style>
-
-    <style name="CustomDialogButtonContainer">
-        <item name="android:layout_margin">0dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">48dp</item>
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">center_vertical|right</item>
-    </style>
-
-    <style name="ButtonGreen" parent="Widget.AppCompat.Button">
-        <item name="colorButtonNormal">@color/blockchain_receive_green</item>
-    </style>
-
-    <style name="ButtonBlue" parent="Widget.AppCompat.Button">
-        <item name="colorButtonNormal">@color/blockchain_blue</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="ButtonRed" parent="Widget.AppCompat.Button">
-        <item name="colorButtonNormal">@color/blockchain_send_red</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="ButtonWhite" parent="Widget.AppCompat.Button">
-        <item name="colorButtonNormal">@color/blockchain_pearl_white</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="SpinnerWhite">
-        <item name="colorControlNormal">@color/blockchain_pearl_white</item>
-    </style>
-
-    <style name="RecoveryPhraseEditText">
-        <item name="android:theme">@style/RecoveryPhraseTextCursorTheme</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">42dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@null</item>
-        <item name="android:inputType">text</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textColorHint">@color/white_50</item>
-    </style>
-
-    <style name="RecoveryPhraseTextCursorTheme">
-        <item name="colorControlActivated">@color/white</item>
-    </style>
-
-    <style name="RecoveryPhraseEditTextUnderline">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">3dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:background">@color/backup_card_blue</item>
-    </style>
-
-    <style name="FullscreenDialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="android:windowActionModeOverlay">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <style name="BottomNavTextAppearance" parent="PlainTheme">
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="PinEntryButtonLayout">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/selector_pin_button</item>
-        <item name="android:gravity">center</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:padding">@dimen/pinentry_padding</item>
-    </style>
-
-    <style name="PinEntryButtonNumberText">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/pinentry_num_text_size</item>
+        <item name="android:textColor">@color/disabled900</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:paddingTop">18dp</item>
+        <item name="android:paddingBottom">18dp</item>
+        <item name="android:layout_marginStart">21dp</item>
+        <item name="android:layout_marginEnd">21dp</item>
     </style>
 
-    <style name="PinEntryButtonLetterText">
+    <style name="TextTag">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/pinentry_alpha_text_size</item>
-    </style>
-
-    <style name="PinEntryKeyboardHorizontalContainer">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:baselineAligned">false</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-
-    <style name="PlaceOrderEditText" parent="TextAppearance.AppCompat">
-        <item name="android:textColorHint">@android:color/white</item>
-        <item name="android:textSize">18sp</item>
-        <item name="colorAccent">@android:color/white</item>
-        <item name="colorControlNormal">@android:color/white</item>
-        <item name="colorControlActivated">@android:color/white</item>
-    </style>
-
-    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/blockchain_grey</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@drawable/basic100_rounded</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:text">@string/send_choose_from_address_book</item>
+        <item name="android:textColor">@color/basic500</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

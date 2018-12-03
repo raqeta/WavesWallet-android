@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="14dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_sent_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Address"
+            android:textColor="@color/disabled900" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_sent_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_below="@+id/text_sent_address"
+            android:layout_marginEnd="16dp"
+            android:textSize="12sp"
+            android:layout_toLeftOf="@+id/image_address_action"
+            android:singleLine="true"
+            android:text="Amount"
+            android:textColor="@color/basic700" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/image_address_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/text_sent_amount"
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/ic_add_address_submit_300" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/shape_dashed_line"
+        android:layerType="software" />
+
+</LinearLayout>

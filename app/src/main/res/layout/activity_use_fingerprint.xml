@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/image_backup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@drawable/shape_oval_dotted_basic300"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="152dp"
+        android:src="@drawable/ic_fingerprint_48_submit_300" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_backup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        app:fontFamily="@font/roboto_medium"
+        android:gravity="center_horizontal"
+        android:text="@string/use_fingerprint_title"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/text_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_title"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/use_fingerprint_subtitle"
+        android:textColor="@color/disabled500" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_use_fingerprint"
+        style="@style/WavesButton"
+        android:layout_gravity="bottom"
+        android:layout_above="@+id/button_do_it_later"
+        android:text="@string/use_fingerprint_submit_txt"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_do_it_later"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/submit400"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textAllCaps="false"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="8dp"
+        android:layout_height="wrap_content"
+        android:text="@string/use_fingerprint_not_now"/>
+
+
+
+
+</RelativeLayout>
