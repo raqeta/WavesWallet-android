@@ -8,10 +8,6 @@ import io.realm.RealmObject;
 public class AmountAssetInfo extends RealmObject implements Parcelable {
     public int decimals = 8;
 
-    public AmountAssetInfo(int decimals) {
-        this.decimals = decimals;
-    }
-
     @Override
     public int describeContents() {
         return 0;

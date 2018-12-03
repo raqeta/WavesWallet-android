@@ -54,7 +54,6 @@ public class RootUtil {
                 process.destroy();
             }
         }
-
     }
 
     private static boolean isEmulator() {

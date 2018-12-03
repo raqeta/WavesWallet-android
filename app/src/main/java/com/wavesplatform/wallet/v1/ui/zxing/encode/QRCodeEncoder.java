@@ -168,18 +168,4 @@ public final class QRCodeEncoder {
         String result = s.trim();
         return result.length() == 0 ? null : result;
     }
-
-    private static String escapeMECARD(String input) {
-        if (input == null || (input.indexOf(':') < 0 && input.indexOf(';') < 0)) { return input; }
-        int length = input.length();
-        StringBuilder result = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            char c = input.charAt(i);
-            if (c == ':' || c == ';') {
-                result.append('\\');
-            }
-            result.append(c);
-        }
-        return result.toString();
-    }
 }

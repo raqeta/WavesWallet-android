@@ -8,18 +8,12 @@ import com.google.common.primitives.Shorts;
 import com.wavesplatform.wallet.v1.crypto.Base58;
 import com.wavesplatform.wallet.v1.crypto.CryptoProvider;
 import com.wavesplatform.wallet.v1.crypto.Hash;
-import com.wavesplatform.wallet.v1.payload.AssetBalance;
-import com.wavesplatform.wallet.v1.payload.IssueTransaction;
-import com.wavesplatform.wallet.v1.util.AddressUtil;
 
 import org.apache.commons.lang3.ArrayUtils;
 
 public class IssueTransactionRequest {
-    public static int MaxDescriptionLength = 1000;
+
     public static int MinFee = 100000000;
-    public static int MaxAssetNameLength = 16;
-    public static int MinAssetNameLength = 4;
-    public static int MaxDecimals = 8;
 
     final public String id;
     final public String senderPublicKey;
@@ -78,32 +72,5 @@ public class IssueTransactionRequest {
         if (signature == null) {
             signature = Base58.encode(CryptoProvider.sign(privateKey, toSignBytes()));
         }
-    }
-
-    public int getNameSize() {
-        return nameBytes.length;
-    }
-
-    public int getDescriptiontSize() {
-        return descriptionBytes.length;
-    }
-
-    public IssueTransaction createDisplayTransaction() {
-        IssueTransaction tx = new IssueTransaction(3, id,
-                AddressUtil.addressFromPublicKey(senderPublicKey), timestamp, quantity, fee,
-                name, description, quantity, decimals, reissuable);
-        tx.isPending = true;
-        return tx;
-    }
-
-    public AssetBalance createDisplayAsset() {
-        AssetBalance ab = new AssetBalance();
-        ab.assetId = id;
-        ab.reissuable = reissuable;
-        ab.quantity = quantity;
-        ab.balance = quantity;
-        ab.issueTransaction = createDisplayTransaction();
-        ab.isPending = true;
-        return ab;
     }
 }

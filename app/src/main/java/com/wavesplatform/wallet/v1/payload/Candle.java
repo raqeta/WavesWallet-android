@@ -3,7 +3,7 @@ package com.wavesplatform.wallet.v1.payload;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Candle implements Parcelable{
+public class Candle implements Parcelable {
 
     private Long timestamp;
     private String open;
