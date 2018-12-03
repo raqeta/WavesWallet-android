@@ -192,7 +192,7 @@ class SendPresenter @Inject constructor() : BasePresenter<SendView>() {
             return null
         }
 
-        if (type == Type.GATEWAY && selectedAsset!!.assetId.equals(recipientAssetId)) {
+        if (type == Type.GATEWAY && selectedAsset!!.assetId == recipientAssetId) {
             return true
         }
 

@@ -34,7 +34,7 @@ class HistoryFilterBottomSheetFragment : BaseBottomSheetDialogFragment() {
         closeBtn = rooView?.findViewById(R.id.button_close)
         filterBtn = rooView?.findViewById(R.id.button_filter)
 
-        rooView?.findViewById<CheckBox>(R.id.checkbox_week)?.setOnCheckedChangeListener({ buttonView, isChecked ->
+        rooView?.findViewById<CheckBox>(R.id.checkbox_week)?.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 periodListSelected.add(buttonView.text.toString())
                 buttonView.setBackgroundResource(R.drawable.period_checked)
@@ -44,8 +44,8 @@ class HistoryFilterBottomSheetFragment : BaseBottomSheetDialogFragment() {
             }
 
             checkIsItemSelected()
-        })
-        rooView?.findViewById<CheckBox>(R.id.checkbox_month)?.setOnCheckedChangeListener({ buttonView, isChecked ->
+        }
+        rooView?.findViewById<CheckBox>(R.id.checkbox_month)?.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 periodListSelected.add(buttonView.text.toString())
                 buttonView.setBackgroundResource(R.drawable.period_checked)
@@ -55,8 +55,8 @@ class HistoryFilterBottomSheetFragment : BaseBottomSheetDialogFragment() {
             }
 
             checkIsItemSelected()
-        })
-        rooView?.findViewById<CheckBox>(R.id.checkbox_half_year)?.setOnCheckedChangeListener({ buttonView, isChecked ->
+        }
+        rooView?.findViewById<CheckBox>(R.id.checkbox_half_year)?.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 periodListSelected.add(buttonView.text.toString())
                 buttonView.setBackgroundResource(R.drawable.period_checked)
@@ -66,7 +66,7 @@ class HistoryFilterBottomSheetFragment : BaseBottomSheetDialogFragment() {
             }
 
             checkIsItemSelected()
-        })
+        }
         setupAssetsList()
         setupTransferList()
 
@@ -106,7 +106,7 @@ class HistoryFilterBottomSheetFragment : BaseBottomSheetDialogFragment() {
         recycleTransfer?.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         recycleTransfer?.adapter = transferAdapter
 
-        var transfeeList = arrayListOf<TransferModel>()
+        val transfeeList = arrayListOf<TransferModel>()
         transfeeList.add(TransferModel("MaksTorch", "3PCjZftzzhtY4ZLLBfsyvNxw8RwAgXZVZJW", false))
         transfeeList.add(TransferModel("MaksTorch1", "3PCjZftzzhtY4ZLLBfsyvNxw8RwAgXZVZJW", false))
         transfeeList.add(TransferModel("MaksTorch2", "3PCjZftzzhtY4ZLLBfsyvNxw8RwAgXZVZJW", false))

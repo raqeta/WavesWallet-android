@@ -7,11 +7,11 @@ import io.github.anderscheow.validator.rules.BaseRule
 
 class AccountNameRule : BaseRule {
 
-    constructor() : super("Value must not be empty") {}
+    constructor() : super("Value must not be empty")
 
-    constructor(@StringRes errorRes: Int) : super(errorRes) {}
+    constructor(@StringRes errorRes: Int) : super(errorRes)
 
-    constructor(errorMessage: String) : super(errorMessage) {}
+    constructor(errorMessage: String) : super(errorMessage)
 
     override fun validate(value: Any?): Boolean {
         if (value == null) {

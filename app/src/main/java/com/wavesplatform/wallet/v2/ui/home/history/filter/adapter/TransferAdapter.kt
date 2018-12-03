@@ -14,8 +14,8 @@ class TransferAdapter @Inject constructor() : BaseQuickAdapter<TransferModel, Ba
 
     override fun convert(helper: BaseViewHolder, item: TransferModel) {
 
-        var address = item?.address
-        var addressStr = StringBuilder()
+        val address = item.address
+        val addressStr = StringBuilder()
         for (i in 0 until address.length) {
             when (i) {
                 in 0..3 -> addressStr.append(address[i])
@@ -34,7 +34,7 @@ class TransferAdapter @Inject constructor() : BaseQuickAdapter<TransferModel, Ba
             else -> helper.getView<LinearLayout>(R.id.root).setMargins(right = dp2px(4), left = dp2px(4))
         }
 
-        if (item?.isChecked) {
+        if (item.isChecked) {
             helper.getView<ImageView>(R.id.image_checked_state).setImageResource(R.drawable.ic_on)
             helper.getView<LinearLayout>(R.id.main_container).setBackgroundResource(R.drawable.period_checked)
         } else {

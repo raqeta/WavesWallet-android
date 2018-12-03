@@ -25,10 +25,10 @@ class AssetsAdapter @Inject constructor() :
     var scrollToHeaderListener: ScrollToHeaderListener? = null
 
     companion object {
-        val TYPE_HEADER = 0
-        val TYPE_ASSET = 1
-        val TYPE_HIDDEN_ASSET = 2
-        val TYPE_SPAM_ASSET = 3
+        const val TYPE_HEADER = 0
+        const val TYPE_ASSET = 1
+        const val TYPE_HIDDEN_ASSET = 2
+        const val TYPE_SPAM_ASSET = 3
     }
 
     init {

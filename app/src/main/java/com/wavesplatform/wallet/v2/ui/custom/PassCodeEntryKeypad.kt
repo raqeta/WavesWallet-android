@@ -25,11 +25,9 @@ class PassCodeEntryKeypad : LinearLayout, View.OnClickListener {
 
     private var allButtons = arrayListOf<View>()
 
-    constructor(context: Context) : this(context, null) {
-    }
+    constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0) {
-    }
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         val attr = context.obtainStyledAttributes(attrs, R.styleable.PassCodeEntryKeypad, defStyleAttr, 0)
@@ -95,9 +93,9 @@ class PassCodeEntryKeypad : LinearLayout, View.OnClickListener {
         val animation = AnimationUtils.loadAnimation(context, R.anim.shake_error)
         dots?.startAnimation(animation)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
         } else {
-            vibrator.vibrate(500);
+            vibrator.vibrate(500)
         }
         runDelayed(500, {
             dots?.clearDots()

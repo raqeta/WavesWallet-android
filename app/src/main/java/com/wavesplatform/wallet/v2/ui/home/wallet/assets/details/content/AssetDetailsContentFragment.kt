@@ -88,7 +88,7 @@ class AssetDetailsContentFragment : BaseFragment(), AssetDetailsContentView {
         view_pager_transaction_history.adapter = historyAdapter
         view_pager_transaction_history.offscreenPageLimit = 3
         view_pager_transaction_history.clipToPadding = false
-        view_pager_transaction_history.setPadding(dp2px(14), 0, dp2px(14), 0);
+        view_pager_transaction_history.setPadding(dp2px(14), 0, dp2px(14), 0)
         view_pager_transaction_history.pageMargin = dp2px(7)
 
         eventSubscriptions.add(RxView.clicks(image_copy_issuer)

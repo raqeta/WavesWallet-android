@@ -17,13 +17,19 @@
 
 package ove.crypto.digest;
 
-        import java.io.PrintStream;
-        import java.security.Key;
-        import java.security.spec.AlgorithmParameterSpec; // JCE not supported / anticipated ..
-        import java.util.Arrays;
+import java.io.PrintStream;
+import java.security.Key;
+import java.security.spec.AlgorithmParameterSpec;
+import java.util.Arrays;
 
-        import static ove.crypto.digest.Blake2b.Engine.Assert.*;
-        import static ove.crypto.digest.Blake2b.Engine.LittleEndian.*;
+import static ove.crypto.digest.Blake2b.Engine.Assert.assertFail;
+import static ove.crypto.digest.Blake2b.Engine.Assert.exclusiveLowerBound;
+import static ove.crypto.digest.Blake2b.Engine.Assert.inclusiveLowerBound;
+import static ove.crypto.digest.Blake2b.Engine.Assert.inclusiveUpperBound;
+import static ove.crypto.digest.Blake2b.Engine.LittleEndian.readInt;
+import static ove.crypto.digest.Blake2b.Engine.LittleEndian.readLong;
+import static ove.crypto.digest.Blake2b.Engine.LittleEndian.writeInt;
+import static ove.crypto.digest.Blake2b.Engine.LittleEndian.writeLong;
 
 
 /**  */
@@ -31,7 +37,7 @@ public interface Blake2b {
     // ---------------------------------------------------------------------
     // Specification
     // ---------------------------------------------------------------------
-    public interface Spec {
+    interface Spec {
         /** pblock size of blake2b */
         int param_bytes 		= 64;
 
@@ -83,7 +89,7 @@ public interface Blake2b {
         };
 
         /** sigma per spec used in compress func generation - for reference only */
-        static byte[][] sigma = {
+        byte[][] sigma = {
                 {  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 } ,
                 { 14, 10,  4,  8,  9, 15, 13,  6,  1, 12,  0,  2, 11,  7,  5,  3 } ,
                 { 11,  8, 12,  0,  5,  2, 15, 13, 10, 14,  3,  6,  7,  1,  9,  4 } ,
@@ -130,7 +136,7 @@ public interface Blake2b {
     // ---------------------------------------------------------------------
 
     /** Generalized Blake2b digest. */
-    public static class Digest extends Engine implements Blake2b {
+    class Digest extends Engine implements Blake2b {
         private Digest (final Param p) { super (p); }
         private Digest () { super (); }
 
@@ -150,7 +156,7 @@ public interface Blake2b {
     // ---------------------------------------------------------------------
 
     /** Message Authentication Code (MAC) digest. */
-    public static class Mac extends Engine implements Blake2b {
+    class Mac extends Engine implements Blake2b {
         private Mac (final Param p) { super (p); }
         private Mac () { super (); }
 
@@ -186,7 +192,7 @@ public interface Blake2b {
      *  Further node, that tree does NOT accumulate the leaf hashes --
      *  you need to do that
      */
-    public static class Tree {
+    class Tree {
 
         final int     depth;
         final int     fanout;
@@ -235,7 +241,7 @@ public interface Blake2b {
     // ---------------------------------------------------------------------
     // Engine
     // ---------------------------------------------------------------------
-    static class Engine implements Blake2b {
+    class Engine implements Blake2b {
 
         /* G0 sigmas */
         static final int[] sig_g00 = {  0, 14, 11,  7,  9,  2, 12, 13,  6, 10,  0, 14, };
@@ -951,7 +957,7 @@ public interface Blake2b {
     // ---------------------------------------------------------------------
     /** Blake2b configuration parameters block per spec */
     // REVU: need to review a revert back to non-lazy impl TODO: do & bench
-    public static class Param implements AlgorithmParameterSpec {
+    class Param implements AlgorithmParameterSpec {
         interface Xoff {
             int digest_length   = 0;
             int key_length      = 1;

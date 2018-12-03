@@ -31,7 +31,7 @@ class HistoryDetailsAdapter @Inject constructor() : PagerAdapter() {
         val layout = inflate(R.layout.history_details_layout, collection,
                 false) as ViewGroup
 
-        var showTag = Constants.defaultAssets.any {
+        val showTag = Constants.defaultAssets.any {
             it.assetId == transaction.assetId || transaction.assetId.isNullOrEmpty()
         }
 

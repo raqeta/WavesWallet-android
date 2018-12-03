@@ -11,7 +11,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.wavesplatform.wallet.App
 import com.wavesplatform.wallet.R
-import com.wavesplatform.wallet.v1.util.ViewUtils
 import com.wavesplatform.wallet.v2.data.model.remote.response.AssetBalance
 import com.wavesplatform.wallet.v2.ui.base.view.BaseFragment
 import com.wavesplatform.wallet.v2.ui.home.quick_action.receive.address_view.ReceiveAddressViewActivity
@@ -126,7 +125,7 @@ class InvoiceFragment : BaseFragment(), InvoiceView {
         val assetId = if (presenter.assetBalance?.assetId.isNullOrEmpty()) {
             "WAVES"
         } else {
-            presenter.assetBalance!!.assetId!!
+            presenter.assetBalance!!.assetId
         }
 
         return "https://client.wavesplatform.com/#send/$assetId?" +

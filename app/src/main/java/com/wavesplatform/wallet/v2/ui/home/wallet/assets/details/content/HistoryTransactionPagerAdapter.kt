@@ -47,7 +47,7 @@ class HistoryTransactionPagerAdapter @Inject constructor(
             bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
         }
 
-        layout.image_transaction.setImageDrawable(item.data.transactionType()?.icon())
+        layout.image_transaction.setImageDrawable(item.data.transactionType().icon())
 
         var showTag = Constants.defaultAssets.any {
             it.assetId == item.data.assetId || item.data.assetId.isNullOrEmpty()
@@ -76,9 +76,9 @@ class HistoryTransactionPagerAdapter @Inject constructor(
                     if (item.data.transfers.isNotEmpty()) {
                         val sum = item.data.transfers.sumByLong { it.amount }
                         if (it == TransactionType.MASS_SPAM_RECEIVE_TYPE || it == TransactionType.MASS_RECEIVE_TYPE) {
-                            layout.text_transaction_value.text = "+${MoneyUtil.getScaledText(sum.toLong(), item.data?.asset)}"
+                            layout.text_transaction_value.text = "+${MoneyUtil.getScaledText(sum.toLong(), item.data.asset)}"
                         } else {
-                            layout.text_transaction_value.text = "-${MoneyUtil.getScaledText(sum.toLong(), item.data?.asset)}"
+                            layout.text_transaction_value.text = "-${MoneyUtil.getScaledText(sum.toLong(), item.data.asset)}"
                         }
                     }
 
@@ -98,10 +98,10 @@ class HistoryTransactionPagerAdapter @Inject constructor(
 
                     if (myOrder?.orderType == Constants.SELL_ORDER_TYPE) {
                         layout.text_transaction_name.text = "-${MoneyUtil.getScaledText(item.data.amount, myOrder.assetPair?.amountAssetObject)} ${myOrder.assetPair?.amountAssetObject?.name}"
-                        layout.text_transaction_value.text = "+${MoneyUtil.getScaledText(item.data.amount?.times(item.data.price!!)?.div(100000000), pairOrder?.assetPair?.priceAssetObject)}"
+                        layout.text_transaction_value.text = "+${MoneyUtil.getScaledText(item.data.amount.times(item.data.price).div(100000000), pairOrder?.assetPair?.priceAssetObject)}"
                     } else {
                         layout.text_transaction_name.text = "+${MoneyUtil.getScaledText(item.data.amount, myOrder?.assetPair?.amountAssetObject)} ${myOrder?.assetPair?.amountAssetObject?.name}"
-                        layout.text_transaction_value.text = "-${MoneyUtil.getScaledText(item.data.amount?.times(item.data.price!!)?.div(100000000), pairOrder?.assetPair?.priceAssetObject)}"
+                        layout.text_transaction_value.text = "-${MoneyUtil.getScaledText(item.data.amount.times(item.data.price).div(100000000), pairOrder?.assetPair?.priceAssetObject)}"
                     }
 
                     showTag = Constants.defaultAssets.any {

@@ -5,5 +5,4 @@ import com.wavesplatform.wallet.v2.ui.base.presenter.BasePresenter
 import javax.inject.Inject
 
 @InjectViewState
-class HistoryPresenter @Inject constructor() : BasePresenter<HistoryView>() {
-}
+class HistoryPresenter @Inject constructor() : BasePresenter<HistoryView>()

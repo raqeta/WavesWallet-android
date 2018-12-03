@@ -96,10 +96,10 @@ class TradeChartPresenter @Inject constructor() : BasePresenter<TradeChartView>(
                 }
                 .filter { candle -> java.lang.Double.valueOf(candle.volume) > 0 }
                 .map { candle ->
-                    val e = CandleEntry((candle.timestamp!! / (1000 * 60 * currentTimeFrame)).toFloat(), java.lang.Float.valueOf(candle.high)!!, java.lang.Float.valueOf(candle.low)!!, java.lang.Float.valueOf(candle.open)!!, java.lang.Float.valueOf(candle.close)!!)
+                    val e = CandleEntry((candle.timestamp!! / (1000 * 60 * currentTimeFrame)).toFloat(), java.lang.Float.valueOf(candle.high), java.lang.Float.valueOf(candle.low), java.lang.Float.valueOf(candle.open), java.lang.Float.valueOf(candle.close))
                     entries.add(e)
 
-                    barEntries.add(BarEntry((candle.timestamp!! / (1000 * 60 * currentTimeFrame)).toFloat(), java.lang.Float.valueOf(candle.volume)!!))
+                    barEntries.add(BarEntry((candle.timestamp!! / (1000 * 60 * currentTimeFrame)).toFloat(), java.lang.Float.valueOf(candle.volume)))
 
                     candle
                 }
@@ -126,8 +126,8 @@ class TradeChartPresenter @Inject constructor() : BasePresenter<TradeChartView>(
                     val bes = ArrayList<BarEntry>()
                     for (candle in candles) {
                         if (java.lang.Float.valueOf(candle.volume) > 0) {
-                            ces.add(CandleEntry((candle.timestamp!! / (1000 * 60 * currentTimeFrame)).toFloat(), java.lang.Float.valueOf(candle.high)!!, java.lang.Float.valueOf(candle.low)!!, java.lang.Float.valueOf(candle.open)!!, java.lang.Float.valueOf(candle.close)!!))
-                            bes.add(BarEntry((candle.timestamp!! / (1000 * 60 * currentTimeFrame)).toFloat(), java.lang.Float.valueOf(candle.volume)!!))
+                            ces.add(CandleEntry((candle.timestamp!! / (1000 * 60 * currentTimeFrame)).toFloat(), java.lang.Float.valueOf(candle.high), java.lang.Float.valueOf(candle.low), java.lang.Float.valueOf(candle.open), java.lang.Float.valueOf(candle.close)))
+                            bes.add(BarEntry((candle.timestamp!! / (1000 * 60 * currentTimeFrame)).toFloat(), java.lang.Float.valueOf(candle.volume)))
                         }
                     }
                     prevToDate = to

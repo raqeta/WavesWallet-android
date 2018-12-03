@@ -11,7 +11,6 @@ import com.ihsanbal.logging.LoggingInterceptor
 import com.wavesplatform.wallet.BuildConfig
 import com.wavesplatform.wallet.v1.util.PrefsUtil
 import com.wavesplatform.wallet.v2.data.factory.RxErrorHandlingCallAdapterFactory
-import com.wavesplatform.wallet.v2.data.local.PreferencesHelper
 import com.wavesplatform.wallet.v2.data.manager.ErrorManager
 import com.wavesplatform.wallet.v2.data.remote.*
 import com.wavesplatform.wallet.v2.injection.qualifier.ApplicationContext
@@ -39,7 +38,7 @@ class NetworkModule {
     @Singleton
     internal fun provideCache(@ApplicationContext context: Context): Cache {
         val cacheSize = 200 * 1024 * 1024
-        val cacheDirectory = File(context.getCacheDir(), "httpcache")
+        val cacheDirectory = File(context.cacheDir, "httpcache")
 
         return Cache(cacheDirectory, cacheSize.toLong())
     }

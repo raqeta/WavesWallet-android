@@ -37,13 +37,13 @@ class ReceivePageAdapter(fm: FragmentManager?, var context: Context,
                         context.getString(R.string.receive_invoice),
                         context.getString(R.string.receive_card))
             }
-            AssetBalance.isFiat(assetBalance!!.assetId!!) -> {
+            AssetBalance.isFiat(assetBalance!!.assetId) -> {
                 data = arrayListOf(
                         InvoiceFragment.newInstance(assetBalance))
                 titles = arrayOf(
                         context.getString(R.string.receive_invoice))
             }
-            AssetBalance.isGateway(assetBalance!!.assetId!!) -> {
+            AssetBalance.isGateway(assetBalance!!.assetId) -> {
                 data = arrayListOf(
                         CryptoCurrencyFragment.newInstance(assetBalance),
                         InvoiceFragment.newInstance(assetBalance))

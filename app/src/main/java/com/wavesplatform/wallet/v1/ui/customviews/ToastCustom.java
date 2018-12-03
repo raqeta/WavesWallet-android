@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wavesplatform.wallet.R;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import com.wavesplatform.wallet.R;
 
 public class ToastCustom {
 
@@ -37,7 +37,7 @@ public class ToastCustom {
 
         LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflate.inflate(R.layout.transient_notification, null);
-        TextView tv = (TextView) v.findViewById(R.id.message);
+        TextView tv = v.findViewById(R.id.message);
         tv.setText(text);
 
         switch (type) {

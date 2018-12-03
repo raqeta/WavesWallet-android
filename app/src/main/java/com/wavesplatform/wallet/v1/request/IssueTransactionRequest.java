@@ -33,7 +33,7 @@ public class IssueTransactionRequest {
     public IssueTransactionRequest(String senderPublicKey, String name, String description,
                                    long quantity, byte decimals, boolean reissuable, long timestamp) {
         this.senderPublicKey = senderPublicKey;
-        this.nameBytes = name != null ? name.getBytes(org.apache.commons.io.Charsets.UTF_8) : ArrayUtils.EMPTY_BYTE_ARRAY;;
+        this.nameBytes = name != null ? name.getBytes(org.apache.commons.io.Charsets.UTF_8) : ArrayUtils.EMPTY_BYTE_ARRAY;
         this.name = name;
         this.descriptionBytes = description != null ? description.getBytes(org.apache.commons.io.Charsets.UTF_8) : ArrayUtils.EMPTY_BYTE_ARRAY;
         this.description = description != null ? description : "";

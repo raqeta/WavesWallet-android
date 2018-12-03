@@ -112,7 +112,7 @@ fun String.isWavesId(): Boolean {
 fun getActionBarHeight(): Int {
     val tv = TypedValue()
     return if (app.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-        TypedValue.complexToDimensionPixelSize(tv.data, app.resources.displayMetrics);
+        TypedValue.complexToDimensionPixelSize(tv.data, app.resources.displayMetrics)
     } else {
         0
     }
@@ -212,7 +212,7 @@ fun Context.isAppOnForeground(): Boolean {
     val packageName = packageName
     appProcesses?.forEach {
         if (it.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
-                && it.processName.equals(packageName)) {
+                && it.processName == packageName) {
             return true
         }
     }
@@ -220,7 +220,7 @@ fun Context.isAppOnForeground(): Boolean {
 }
 
 fun Context.getToolBarHeight(): Int {
-    val styledAttributes = getTheme().obtainStyledAttributes(
+    val styledAttributes = theme.obtainStyledAttributes(
             intArrayOf(android.R.attr.actionBarSize))
     val mActionBarSize = styledAttributes.getDimension(0, 0f).toInt()
     styledAttributes.recycle()
@@ -509,10 +509,10 @@ fun ImageView.loadImage(file: File?, centerCrop: Boolean = true, circleCrop: Boo
 
 @SuppressWarnings("deprecation")
 fun Context.fromHtml(source: String): Spanned {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY)
     } else {
-        return Html.fromHtml(source)
+        Html.fromHtml(source)
     }
 }
 
@@ -635,12 +635,10 @@ fun TextView.makeTextHalfBold() {
         ""
     }
     val str = SpannableStringBuilder(textBefore)
-    if (textBefore.indexOf(".") != -1) {
-        str.setSpan(StyleSpan(Typeface.BOLD), 0, textBefore.indexOf("."), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    } else if (textBefore.indexOf(" ") != -1) {
-        str.setSpan(StyleSpan(Typeface.BOLD), 0, textBefore.indexOf(" "), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    } else {
-        str.setSpan(StyleSpan(Typeface.BOLD), 0, textBefore.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    when {
+        textBefore.indexOf(".") != -1 -> str.setSpan(StyleSpan(Typeface.BOLD), 0, textBefore.indexOf("."), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        textBefore.indexOf(" ") != -1 -> str.setSpan(StyleSpan(Typeface.BOLD), 0, textBefore.indexOf(" "), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        else -> str.setSpan(StyleSpan(Typeface.BOLD), 0, textBefore.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
     this.text = str.append(" $textAfter")
 }

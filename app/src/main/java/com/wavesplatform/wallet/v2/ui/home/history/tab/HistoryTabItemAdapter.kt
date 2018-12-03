@@ -72,9 +72,9 @@ class HistoryTabItemAdapter @Inject constructor() :
                         equalTo("assetId", item.data.assetId)
                     }
 
-                    view.image_transaction.setImageDrawable(item.data.transactionType()?.icon())
+                    view.image_transaction.setImageDrawable(item.data.transactionType().icon())
 
-                    var showTag = Constants.defaultAssets.any {
+                    val showTag = Constants.defaultAssets.any {
                         it.assetId == item.data.assetId || item.data.assetId.isNullOrEmpty()
                     }
 

@@ -76,7 +76,7 @@ class WelcomeActivity : BaseDrawerActivity(), WelcomeView {
             } else if (position == 0.0F) {
                 root.alpha = 1.0F
             } else {
-                root.alpha = 1.0F - Math.abs(position);
+                root.alpha = 1.0F - Math.abs(position)
             }
         }
         view_pager.adapter = WelcomeItemsPagerAdapter(this, populateList(), true)

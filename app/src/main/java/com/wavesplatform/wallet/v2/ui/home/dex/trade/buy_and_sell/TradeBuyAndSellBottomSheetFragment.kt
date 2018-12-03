@@ -99,7 +99,7 @@ class TradeBuyAndSellBottomSheetFragment : BaseBottomSheetDialogFragment(), Trad
         val argbEvaluator = ArgbEvaluator()
         val mColorAnimation = ValueAnimator.ofObject(argbEvaluator, findColor(R.color.submit400), findColor(R.color.error400))
         mColorAnimation.addUpdateListener { animation ->
-            rootView.stl_buy_sell.indicatorColor = (animation?.animatedValue.toString().toInt());
+            rootView.stl_buy_sell.indicatorColor = (animation?.animatedValue.toString().toInt())
         }
         mColorAnimation.duration = (2 - 1) * 10000000000L
 
@@ -109,7 +109,7 @@ class TradeBuyAndSellBottomSheetFragment : BaseBottomSheetDialogFragment(), Trad
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                mColorAnimation.currentPlayTime = ((positionOffset + position) * 10000000000L).toLong();
+                mColorAnimation.currentPlayTime = ((positionOffset + position) * 10000000000L).toLong()
 
                 if (position < adapter.count - 1 && position < colors.size - 1) {
                     rootView.stl_buy_sell.indicatorColor = (argbEvaluator.evaluate(positionOffset, colors[position], colors[position + 1]) as Int)

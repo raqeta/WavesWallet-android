@@ -291,8 +291,8 @@ class HistoryDetailsBottomSheetFragment : BaseBottomSheetDialogFragment(), Histo
                             myOrder.assetPair?.amountAssetObject!!.name,
                             myOrder.assetPair?.priceAssetObject?.name)
                     btcPrice?.text = "${MoneyUtil.getScaledText(transaction.price,
-                            myOrder?.assetPair?.priceAssetObject)} " +
-                            "${myOrder?.assetPair?.priceAssetObject?.name}"
+                            myOrder.assetPair?.priceAssetObject)} " +
+                            "${myOrder.assetPair?.priceAssetObject?.name}"
                 }
 
                 historyContainer?.addView(exchangeView)

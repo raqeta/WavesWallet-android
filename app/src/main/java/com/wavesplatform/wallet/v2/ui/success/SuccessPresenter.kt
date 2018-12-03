@@ -6,6 +6,4 @@ import com.wavesplatform.wallet.v2.ui.base.presenter.BasePresenter
 import javax.inject.Inject
 
 @InjectViewState
-class SuccessPresenter @Inject constructor() : BasePresenter<SuccessView>() {
-
-}
+class SuccessPresenter @Inject constructor() : BasePresenter<SuccessView>()

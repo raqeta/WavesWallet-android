@@ -12,7 +12,6 @@ import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.SkeletonScreen
 import com.wavesplatform.wallet.App
 import com.wavesplatform.wallet.R
-import com.wavesplatform.wallet.v1.util.ViewUtils
 import com.wavesplatform.wallet.v2.data.model.remote.response.AssetBalance
 import com.wavesplatform.wallet.v2.data.model.remote.response.coinomat.GetTunnel
 import com.wavesplatform.wallet.v2.ui.base.view.BaseFragment
@@ -26,15 +25,15 @@ import pers.victor.ext.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class CryptoCurrencyFragment : BaseFragment(), СryptocurrencyView {
+class CryptoCurrencyFragment : BaseFragment(), CryptocurrencyView {
 
     @Inject
     @InjectPresenter
-    lateinit var presenter: СryptocurrencyPresenter
+    lateinit var presenter: CryptocurrencyPresenter
     private var skeletonView: SkeletonScreen? = null
 
     @ProvidePresenter
-    fun providePresenter(): СryptocurrencyPresenter = presenter
+    fun providePresenter(): CryptocurrencyPresenter = presenter
 
     override fun configLayoutRes(): Int = R.layout.fragment_cryptocurrency
 
@@ -147,7 +146,7 @@ class CryptoCurrencyFragment : BaseFragment(), СryptocurrencyView {
         needMakeButtonEnable()
 
         if (assetBalance != null) {
-            presenter.getTunnel(assetBalance.assetId!!)
+            presenter.getTunnel(assetBalance.assetId)
             skeletonView = Skeleton.bind(container_info)
                     .color(R.color.basic50)
                     .load(R.layout.item_skeleton_crypto_warning)

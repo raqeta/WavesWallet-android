@@ -140,7 +140,7 @@ class TradeOrderBookFragment : BaseFragment(), TradeOrderBookView {
     }
 
     private fun getBidPrice(): Long? {
-        val itemEntity = adapter.data.filter { it.itemType == TradeOrderBookAdapter.BID_TYPE }.firstOrNull()
+        val itemEntity = adapter.data.firstOrNull { it.itemType == TradeOrderBookAdapter.BID_TYPE }
         return if (itemEntity != null) {
             (itemEntity as OrderBook.Bid).price
         } else {
@@ -149,7 +149,7 @@ class TradeOrderBookFragment : BaseFragment(), TradeOrderBookView {
     }
 
     private fun getAskPrice(): Long? {
-        val itemEntity = adapter.data.filter { it.itemType == TradeOrderBookAdapter.ASK_TYPE }.lastOrNull()
+        val itemEntity = adapter.data.lastOrNull { it.itemType == TradeOrderBookAdapter.ASK_TYPE }
         return if (itemEntity != null) {
             (itemEntity as OrderBook.Ask).price
         } else {

@@ -55,7 +55,7 @@ public class EnvironmentManager {
         private String dataFeedUrl;
         private char addressScheme;
 
-        private Environment(String name, String nodeUrl, String matherUrl, String dataFeedUrl,  char addressScheme) {
+        Environment(String name, String nodeUrl, String matherUrl, String dataFeedUrl, char addressScheme) {
             this.name = name;
             this.nodeUrl = nodeUrl;
             this.dataFeedUrl = dataFeedUrl;

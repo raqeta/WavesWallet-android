@@ -38,7 +38,7 @@ class RxErrorHandlingCallAdapterFactory(private val mErrorManager: ErrorManager)
 
         override fun adapt(call: Call<R>): Observable<*> {
             val retrySubject = PublishSubject.create<Events.RetryEvent>()
-            var observable = convert(wrapped.adapt(call))
+            val observable = convert(wrapped.adapt(call))
                     .onErrorResumeNext { t: Throwable -> Observable.error(handleErrorToShow(t, retrySubject)) }
             return observable
         }
@@ -51,10 +51,10 @@ class RxErrorHandlingCallAdapterFactory(private val mErrorManager: ErrorManager)
 
 
         private fun convert(o: Any): Observable<*> {
-            if (o is Completable)
-                return o.toObservable<Any>()
+            return if (o is Completable)
+                o.toObservable<Any>()
             else
-                return o as Observable<*>
+                o as Observable<*>
         }
 
         fun asRetrofitException(throwable: Throwable): RetrofitException {
