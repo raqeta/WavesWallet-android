@@ -30,7 +30,7 @@ class WebActivity : BaseActivity(), WebView {
         setStatusBarColor(R.color.basic50)
         setNavigationBarColor(R.color.basic50)
 
-        if (!intent.hasExtra(KEY_INTENT_LINK)) {
+        if (intent == null || !intent.hasExtra(KEY_INTENT_LINK)) {
             finish()
         }
 

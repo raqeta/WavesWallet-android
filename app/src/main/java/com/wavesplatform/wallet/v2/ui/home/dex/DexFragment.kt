@@ -51,16 +51,6 @@ class DexFragment : BaseFragment(), DexView {
 
     override fun configLayoutRes(): Int = R.layout.fragment_dex_new
 
-    companion object {
-        const val RESULT_NEED_UPDATE = "need_update"
-        const val REQUEST_SORTING = 121
-        const val REQUEST_SELECT_MARKETS = 122
-
-        fun newInstance(): DexFragment {
-            return DexFragment()
-        }
-    }
-
     override fun onViewReady(savedInstanceState: Bundle?) {
         swipe_container.setColorSchemeResources(R.color.submit400)
 
@@ -236,6 +226,16 @@ class DexFragment : BaseFragment(), DexView {
             addMarketsItem?.icon?.alpha = 255 // 1.0
         } else {
             addMarketsItem?.icon?.alpha = 77 // 0.3
+        }
+    }
+
+    companion object {
+        const val RESULT_NEED_UPDATE = "need_update"
+        const val REQUEST_SORTING = 121
+        const val REQUEST_SELECT_MARKETS = 122
+
+        fun newInstance(): DexFragment {
+            return DexFragment()
         }
     }
 }

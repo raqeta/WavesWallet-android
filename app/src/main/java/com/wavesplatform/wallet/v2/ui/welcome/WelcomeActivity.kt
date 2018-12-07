@@ -8,6 +8,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.asksira.loopingviewpager.LoopingViewPager
 import com.wavesplatform.wallet.R
+import com.wavesplatform.wallet.v2.data.model.local.Language
 import com.wavesplatform.wallet.v2.data.model.local.WelcomeItem
 import com.wavesplatform.wallet.v2.ui.auth.choose_account.ChooseAccountActivity
 import com.wavesplatform.wallet.v2.ui.auth.import_account.ImportAccountActivity
@@ -34,12 +35,6 @@ class WelcomeActivity : BaseDrawerActivity(), WelcomeView {
     fun providePresenter(): WelcomePresenter = presenter
 
     override fun configLayoutRes() = R.layout.activity_welcome
-
-    companion object {
-        var REQUEST_NEW_ACCOUNT = 55
-        var REQUEST_SIGN_IN = 56
-        var REQUEST_IMPORT_ACC = 57
-    }
 
     override fun askPassCode() = false
 
@@ -102,10 +97,11 @@ class WelcomeActivity : BaseDrawerActivity(), WelcomeView {
                         getString(R.string.welcome_wallet_description)),
                 WelcomeItem(R.drawable.userimg_dex_80,
                         getString(R.string.welcome_dex_title),
-                        getString(R.string.welcome_dex_description)),
-                WelcomeItem(R.drawable.userimg_token_80,
+                        getString(R.string.welcome_dex_description))
+                /*, WelcomeItem(R.drawable.userimg_token_80,
                         getString(R.string.welcome_token_title),
-                        getString(R.string.welcome_token_description)))
+                        getString(R.string.welcome_token_description))*/
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -116,7 +112,7 @@ class WelcomeActivity : BaseDrawerActivity(), WelcomeView {
                     override fun onLanguageSelected(lang: String) {
                         menu.notNull {
                             presenter.saveLanguage(lang)
-                            setLanguage(Locale(lang))
+                            setLanguage(Language.getLocale(lang))
                         }
                     }
                 }
@@ -136,10 +132,21 @@ class WelcomeActivity : BaseDrawerActivity(), WelcomeView {
 
     private fun updateMenuTitle() {
         val bedMenuItem = menu?.findItem(R.id.action_change_language)
-        bedMenuItem?.title = preferencesHelper.getLanguage()
+        val langCode = preferencesHelper.getLanguage()
+        if (langCode == Language.BRAZILIAN.code) {
+            bedMenuItem?.title = "br"
+        } else {
+            bedMenuItem?.title = preferencesHelper.getLanguage()
+        }
     }
 
     override fun onBackPressed() {
         exit()
+    }
+
+    companion object {
+        var REQUEST_NEW_ACCOUNT = 55
+        var REQUEST_SIGN_IN = 56
+        var REQUEST_IMPORT_ACC = 57
     }
 }

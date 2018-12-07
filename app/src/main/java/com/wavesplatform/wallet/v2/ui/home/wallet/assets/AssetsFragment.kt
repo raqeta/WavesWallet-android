@@ -37,7 +37,6 @@ import kotlinx.android.synthetic.main.wallet_header_item.view.*
 import pers.victor.ext.dp2px
 import pers.victor.ext.gone
 import pers.victor.ext.isVisible
-import pers.victor.ext.toast
 import pyxis.uzuki.live.richutilskt.utils.runDelayed
 import pyxis.uzuki.live.richutilskt.utils.runOnUiThread
 import javax.inject.Inject
@@ -58,16 +57,6 @@ class AssetsFragment : BaseFragment(), AssetsView {
     private var skeletonScreen: RecyclerViewSkeletonScreen? = null
     private var headerItemDecoration: PinnedHeaderItemDecoration? = null
     var changeTabBarVisibilityListener: HistoryTabFragment.ChangeTabBarVisibilityListener? = null
-
-    companion object {
-        const val RESULT_NEED_UPDATE = "need_update"
-        const val REQUEST_SORTING = 111
-        const val REQUEST_ASSET_DETAILS = 112
-
-        fun newInstance(): AssetsFragment {
-            return AssetsFragment()
-        }
-    }
 
     override fun configLayoutRes(): Int = R.layout.fragment_assets
 
@@ -163,11 +152,11 @@ class AssetsFragment : BaseFragment(), AssetsView {
                 .show()
 
         // make skeleton as designed
-        recycle_assets.post {
-            recycle_assets.layoutManager?.findViewByPosition(1)?.alpha = 0.7f
-            recycle_assets.layoutManager?.findViewByPosition(2)?.alpha = 0.5f
-            recycle_assets.layoutManager?.findViewByPosition(3)?.alpha = 0.4f
-            recycle_assets.layoutManager?.findViewByPosition(4)?.alpha = 0.2f
+        recycle_assets?.post {
+            recycle_assets?.layoutManager?.findViewByPosition(1)?.alpha = 0.7f
+            recycle_assets?.layoutManager?.findViewByPosition(2)?.alpha = 0.5f
+            recycle_assets?.layoutManager?.findViewByPosition(3)?.alpha = 0.4f
+            recycle_assets?.layoutManager?.findViewByPosition(4)?.alpha = 0.2f
         }
 
         adapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
@@ -277,5 +266,15 @@ class AssetsFragment : BaseFragment(), AssetsView {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        const val RESULT_NEED_UPDATE = "need_update"
+        const val REQUEST_SORTING = 111
+        const val REQUEST_ASSET_DETAILS = 112
+
+        fun newInstance(): AssetsFragment {
+            return AssetsFragment()
+        }
     }
 }

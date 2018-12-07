@@ -20,17 +20,12 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import pers.victor.ext.currentTimeMillis
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MatcherDataManager @Inject constructor() : BaseDataManager() {
     var allMarketsList = mutableListOf<MarketResponse>()
-
-    companion object {
-        var OTHER_GROUP = "other"
-    }
 
     fun loadReservedBalances(): Observable<Map<String, Long>> {
         val timestamp = currentTimeMillis
@@ -171,5 +166,9 @@ class MatcherDataManager @Inject constructor() : BaseDataManager() {
 
             return@Function3 filteredSpamList
         })
+    }
+
+    companion object {
+        var OTHER_GROUP = "other"
     }
 }

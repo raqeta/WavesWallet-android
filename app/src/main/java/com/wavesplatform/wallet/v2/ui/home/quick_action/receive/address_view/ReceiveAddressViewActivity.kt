@@ -3,8 +3,6 @@ package com.wavesplatform.wallet.v2.ui.home.quick_action.receive.address_view
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.WindowManager
-import android.view.animation.AnimationUtils
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.view.RxView
@@ -22,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_receive_address_view.*
 import pers.victor.ext.click
 import pers.victor.ext.gone
 import pers.victor.ext.visiable
-import pyxis.uzuki.live.richutilskt.utils.runDelayed
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -53,16 +50,6 @@ class ReceiveAddressViewActivity : BaseActivity(), ReceiveAddressView {
 
         image_asset_icon.isOval = true
         image_asset_icon.setAsset(assetBalance)
-
-        val rotation = AnimationUtils.loadAnimation(this, R.anim.rotate)
-        rotation.fillAfter = true
-        image_loader.startAnimation(rotation)
-        runDelayed(2000) {
-            image_loader.clearAnimation()
-            card_progress.gone()
-            card_address_view.visiable()
-            image_close.visiable()
-        }
 
         image_close.click {
             launchActivity<MainActivity>(clear = true)

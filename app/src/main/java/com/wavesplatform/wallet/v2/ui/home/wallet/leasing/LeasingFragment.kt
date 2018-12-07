@@ -10,7 +10,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.wavesplatform.wallet.R
-import com.wavesplatform.wallet.v1.util.MoneyUtil
 import com.wavesplatform.wallet.v2.data.Events
 import com.wavesplatform.wallet.v2.data.model.local.HistoryTab
 import com.wavesplatform.wallet.v2.data.model.remote.response.AssetBalance
@@ -27,7 +26,9 @@ import com.wavesplatform.wallet.v2.util.launchActivity
 import com.wavesplatform.wallet.v2.util.makeTextHalfBold
 import com.wavesplatform.wallet.v2.util.notNull
 import kotlinx.android.synthetic.main.fragment_leasing.*
-import pers.victor.ext.*
+import pers.victor.ext.click
+import pers.victor.ext.gone
+import pers.victor.ext.visiable
 import javax.inject.Inject
 
 class LeasingFragment : BaseFragment(), LeasingView {
@@ -42,16 +43,6 @@ class LeasingFragment : BaseFragment(), LeasingView {
     @Inject
     lateinit var adapterActiveAdapter: LeasingActiveAdapter
     var changeTabBarVisibilityListener: HistoryTabFragment.ChangeTabBarVisibilityListener? = null
-
-    companion object {
-
-        /**
-         * @return LeasingFragment instance
-         * */
-        fun newInstance(): LeasingFragment {
-            return LeasingFragment()
-        }
-    }
 
     override fun configLayoutRes(): Int = R.layout.fragment_leasing
 
@@ -206,5 +197,15 @@ class LeasingFragment : BaseFragment(), LeasingView {
 
     override fun afterFailedLoadLeasing() {
         swipe_container.isRefreshing = false
+    }
+
+    companion object {
+
+        /**
+         * @return LeasingFragment instance
+         * */
+        fun newInstance(): LeasingFragment {
+            return LeasingFragment()
+        }
     }
 }

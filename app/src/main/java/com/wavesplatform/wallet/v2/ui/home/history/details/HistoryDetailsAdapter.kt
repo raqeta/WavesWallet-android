@@ -79,7 +79,7 @@ class HistoryDetailsAdapter @Inject constructor() : PagerAdapter() {
             TransactionType.CANCELED_LEASING_TYPE -> {
                 transaction.lease?.amount.notNull {
                     layout.text_amount_or_title.text = MoneyUtil.getScaledText(
-                            it.toLong(), transaction.asset).stripZeros()
+                            it, transaction.asset).stripZeros()
                 }
             }
             TransactionType.TOKEN_GENERATION_TYPE -> {
@@ -90,8 +90,8 @@ class HistoryDetailsAdapter @Inject constructor() : PagerAdapter() {
             TransactionType.TOKEN_BURN_TYPE -> {
                 transaction.amount.notNull {
                     val afterDot = MoneyUtil.getScaledText(it, transaction.asset)
-                            .substringAfter(".").toInt()
-                    val amount = if (afterDot == 0) {
+                            .substringAfter(".").clearBalance().toLong()
+                    val amount = if (afterDot == 0L) {
                         MoneyUtil.getScaledText(it, transaction.asset).substringBefore(".")
                     } else {
                         MoneyUtil.getScaledText(it, transaction.asset)
@@ -119,8 +119,11 @@ class HistoryDetailsAdapter @Inject constructor() : PagerAdapter() {
                 && transaction.transactionType() != TransactionType.MASS_SPAM_RECEIVE_TYPE
                 && transaction.transactionType() != TransactionType.EXCHANGE_TYPE) {
             if (showTag) {
-                layout.text_tag.visiable()
-                layout.text_tag.text = transaction.asset?.name
+                val ticker = transaction.asset?.getTicker()
+                if (!ticker.isNullOrBlank()) {
+                    layout.text_tag.text = ticker
+                    layout.text_tag.visiable()
+                }
             } else {
                 layout.text_tag.gone()
                 layout.text_amount_or_title.text = "${layout.text_amount_or_title.text}" +

@@ -27,7 +27,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_start_leasing.*
 import pers.victor.ext.*
-import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -39,15 +38,6 @@ class StartLeasingActivity : BaseActivity(), StartLeasingView {
 
     @ProvidePresenter
     fun providePresenter(): StartLeasingPresenter = presenter
-
-    companion object {
-        var REQUEST_CHOOSE_ADDRESS = 57
-        var REQUEST_LEASING_CONFIRMATION = 59
-        var REQUEST_CANCEL_LEASING_CONFIRMATION = 60
-        var REQUEST_SCAN_QR_CODE = 52
-        var BUNDLE_WAVES = "waves"
-        var TOTAL_BALANCE = "100"
-    }
 
     override fun configLayoutRes(): Int = R.layout.activity_start_leasing
 
@@ -196,7 +186,7 @@ class StartLeasingActivity : BaseActivity(), StartLeasingView {
                         }
                         makeButtonEnableIfValid()
                         return@map Pair(isValid, it)
-                    }else{
+                    } else {
                         presenter.amountValidation = false
                         return@map Pair(false, it)
                     }
@@ -257,7 +247,7 @@ class StartLeasingActivity : BaseActivity(), StartLeasingView {
             when (quickBalanceView.tag) {
                 TOTAL_BALANCE -> {
                     quickBalanceView.click {
-                        edit_amount.setText((waves.getDisplayAvailableBalance().toBigDecimal() - MoneyUtil.getScaledText(Constants.WAVES_FEE, presenter.wavesAsset).toBigDecimal()).toString())
+                        edit_amount.setText(MoneyUtil.getScaledText(waves.getAvailableBalance()?.minus(Constants.WAVES_FEE), waves).clearBalance().toBigDecimal().toString())
                         edit_amount.setSelection(edit_amount.text.length)
                     }
                 }
@@ -282,5 +272,14 @@ class StartLeasingActivity : BaseActivity(), StartLeasingView {
     override fun onNetworkConnectionChanged(networkConnected: Boolean) {
         super.onNetworkConnectionChanged(networkConnected)
         button_continue.isEnabled = presenter.isAllFieldsValid() && networkConnected
+    }
+
+    companion object {
+        var REQUEST_CHOOSE_ADDRESS = 57
+        var REQUEST_LEASING_CONFIRMATION = 59
+        var REQUEST_CANCEL_LEASING_CONFIRMATION = 60
+        var REQUEST_SCAN_QR_CODE = 52
+        var BUNDLE_WAVES = "waves"
+        var TOTAL_BALANCE = "100"
     }
 }

@@ -41,6 +41,7 @@ import com.wavesplatform.wallet.v2.ui.home.wallet.leasing.start.StartLeasingActi
 import com.wavesplatform.wallet.v2.ui.home.wallet.your_assets.YourAssetsActivity
 import com.wavesplatform.wallet.v2.util.*
 import kotlinx.android.synthetic.main.activity_send.*
+import kotlinx.android.synthetic.main.layout_asset_card.*
 import pers.victor.ext.*
 import java.math.BigDecimal
 import java.net.URI
@@ -59,19 +60,6 @@ class SendActivity : BaseActivity(), SendView {
     fun providePresenter(): SendPresenter = presenter
 
     override fun configLayoutRes() = R.layout.activity_send
-
-    companion object {
-        const val REQUEST_YOUR_ASSETS = 43
-        const val REQUEST_SCAN_RECEIVE = 44
-        const val REQUEST_SCAN_MONERO = 45
-        const val KEY_INTENT_ASSET_DETAILS = "asset_details"
-        const val KEY_INTENT_REPEAT_TRANSACTION = "repeat_transaction"
-        const val KEY_INTENT_TRANSACTION_ASSET_BALANCE = "transaction_asset_balance"
-        const val KEY_INTENT_TRANSACTION_AMOUNT = "transaction_amount"
-        const val KEY_INTENT_TRANSACTION_ATTACHMENT = "transaction_attachment"
-        const val KEY_INTENT_TRANSACTION_RECIPIENT = "transaction_recipient"
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         overridePendingTransition(R.anim.slide_in_right, R.anim.null_animation)
@@ -423,7 +411,7 @@ class SendActivity : BaseActivity(), SendView {
 
         if (result.contains("https://client.wavesplatform.com/#send/".toRegex()) ||
                 result.contains("https://client.wavesplatform.com/%23send/".toRegex())) {
-            val uri = URI.create(result
+            val uri = URI.create(result.replace(" ", "")
                     .replace("/#send/", "/send/")
                     .replace("/%23send/", "/send/"))
             try {
@@ -473,20 +461,24 @@ class SendActivity : BaseActivity(), SendView {
         asset.notNull {
             presenter.selectedAsset = asset
 
-            relative_chosen_coin.visiable()
-            text_asset_hint.gone()
-
             image_asset_icon.isOval = true
             image_asset_icon.setAsset(it)
-
             text_asset_name.text = it.getName()
-
             text_asset_value.text = it.getDisplayAvailableBalance()
-            if (it.isFavorite) {
-                image_asset_is_favourite.visiable()
-            } else {
-                image_asset_is_favourite.gone()
+
+            image_is_favourite.visiableIf {
+                it.isFavorite
             }
+
+            image_down_arrow.visibility = if (it.isGateway && !it.isWaves()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+
+            text_asset.gone()
+            container_asset.visiable()
+
             checkRecipient(edit_address.text.toString())
         }
     }
@@ -510,17 +502,17 @@ class SendActivity : BaseActivity(), SendView {
 
     private fun assetEnable(enable: Boolean) {
         if (enable) {
-            ViewCompat.setElevation(card_asset, dp2px(2).toFloat())
-            card_asset.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white))
-            asset_layout.background = null
-            card_asset.click { launchAssets() }
+            ViewCompat.setElevation(edit_asset_card, dp2px(2).toFloat())
+            edit_asset_card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            edit_asset_layout.background = null
+            edit_asset_card.click { launchAssets() }
             image_change.visibility = View.VISIBLE
         } else {
-            ViewCompat.setElevation(card_asset, 0F)
-            card_asset.setCardBackgroundColor(ContextCompat.getColor(this, R.color.basic50))
-            asset_layout.background = ContextCompat.getDrawable(
+            ViewCompat.setElevation(edit_asset_card, 0F)
+            edit_asset_card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.basic50))
+            edit_asset_layout.background = ContextCompat.getDrawable(
                     this, R.drawable.shape_rect_bordered_accent50)
-            card_asset.click { /* do nothing */ }
+            edit_asset_card.click { /* do nothing */ }
             image_change.visibility = View.GONE
         }
     }
@@ -575,5 +567,17 @@ class SendActivity : BaseActivity(), SendView {
     override fun onNetworkConnectionChanged(networkConnected: Boolean) {
         super.onNetworkConnectionChanged(networkConnected)
         button_continue.isEnabled = networkConnected
+    }
+
+    companion object {
+        const val REQUEST_YOUR_ASSETS = 43
+        const val REQUEST_SCAN_RECEIVE = 44
+        const val REQUEST_SCAN_MONERO = 45
+        const val KEY_INTENT_ASSET_DETAILS = "asset_details"
+        const val KEY_INTENT_REPEAT_TRANSACTION = "repeat_transaction"
+        const val KEY_INTENT_TRANSACTION_ASSET_BALANCE = "transaction_asset_balance"
+        const val KEY_INTENT_TRANSACTION_AMOUNT = "transaction_amount"
+        const val KEY_INTENT_TRANSACTION_ATTACHMENT = "transaction_attachment"
+        const val KEY_INTENT_TRANSACTION_RECIPIENT = "transaction_recipient"
     }
 }

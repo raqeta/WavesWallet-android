@@ -17,12 +17,6 @@ import javax.inject.Inject
 class TradeOrderBookAdapter @Inject constructor() : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(null) {
     var market: MarketResponse = MarketResponse()
 
-    companion object {
-        const val LAST_PRICE_TYPE = 1
-        const val BID_TYPE = 2
-        const val ASK_TYPE = 3
-    }
-
     init {
         addItemType(LAST_PRICE_TYPE, R.layout.recycle_item_orderbook_last_price)
         addItemType(BID_TYPE, R.layout.recycle_item_orderbook)
@@ -35,9 +29,9 @@ class TradeOrderBookAdapter @Inject constructor() : BaseMultiItemQuickAdapter<Mu
                 val item = item as LastPriceItem
                 val percent = "%.2f".format(item.spreadPercent)
                 helper.setImageResource(R.id.image_graph,
-                        if (item.lastTrade?.getType() == OrderType.BUY) R.drawable.ic_chartarrow_success_400
+                        if (item.lastTrade?.getMyOrder()?.getType() == OrderType.BUY) R.drawable.ic_chartarrow_success_400
                         else R.drawable.ic_chartarrow_error_500)
-                        .setText(R.id.text_price_value, item.lastTrade?.price?.stripZeros())
+                        .setText(R.id.text_price_value, item.lastTrade?.price?.toString()?.stripZeros())
                         .setText(R.id.text_percent_value, mContext.getString(R.string.orderbook_spread_percent, percent))
             }
             ASK_TYPE -> {
@@ -62,6 +56,11 @@ class TradeOrderBookAdapter @Inject constructor() : BaseMultiItemQuickAdapter<Mu
                         .setText(R.id.text_sum_value, MoneyUtil.getFormattedTotal(item.sum, market.priceAssetDecimals))
             }
         }
+    }
 
+    companion object {
+        const val LAST_PRICE_TYPE = 1
+        const val BID_TYPE = 2
+        const val ASK_TYPE = 3
     }
 }

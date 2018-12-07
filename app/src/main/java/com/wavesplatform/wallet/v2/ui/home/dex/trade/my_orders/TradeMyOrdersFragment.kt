@@ -8,15 +8,12 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.wavesplatform.wallet.R
 import com.wavesplatform.wallet.v2.data.Events
-import com.wavesplatform.wallet.v2.data.model.local.MyOrderItem
-import com.wavesplatform.wallet.v2.data.model.local.OrderStatus
 import com.wavesplatform.wallet.v2.data.model.local.WatchMarket
 import com.wavesplatform.wallet.v2.data.model.remote.response.OrderResponse
 import com.wavesplatform.wallet.v2.ui.base.view.BaseFragment
 import com.wavesplatform.wallet.v2.ui.home.dex.trade.TradeActivity
 import com.wavesplatform.wallet.v2.util.notNull
 import kotlinx.android.synthetic.main.fragment_trade_my_orders.*
-import kotlinx.android.synthetic.main.layout_empty_data.*
 import kotlinx.android.synthetic.main.layout_empty_data.view.*
 import pers.victor.ext.gone
 import pers.victor.ext.inflate
@@ -32,17 +29,6 @@ class TradeMyOrdersFragment : BaseFragment(), TradeMyOrdersView {
 
     @Inject
     lateinit var adapter: TradeMyOrdersAdapter
-
-    companion object {
-        fun newInstance(watchMarket: WatchMarket?): TradeMyOrdersFragment {
-            val args = Bundle()
-            args.classLoader = WatchMarket::class.java.classLoader
-            args.putParcelable(TradeActivity.BUNDLE_MARKET, watchMarket)
-            val fragment = TradeMyOrdersFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     @ProvidePresenter
     fun providePresenter(): TradeMyOrdersPresenter = presenter
@@ -109,5 +95,16 @@ class TradeMyOrdersFragment : BaseFragment(), TradeMyOrdersView {
     private fun loadOrders() {
         swipe_container.isRefreshing = true
         presenter.loadMyOrders()
+    }
+
+    companion object {
+        fun newInstance(watchMarket: WatchMarket?): TradeMyOrdersFragment {
+            val args = Bundle()
+            args.classLoader = WatchMarket::class.java.classLoader
+            args.putParcelable(TradeActivity.BUNDLE_MARKET, watchMarket)
+            val fragment = TradeMyOrdersFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

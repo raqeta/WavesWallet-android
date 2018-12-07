@@ -97,10 +97,10 @@ class PassCodeEntryKeypad : LinearLayout, View.OnClickListener {
         } else {
             vibrator.vibrate(500)
         }
-        runDelayed(500, {
+        runDelayed(500) {
             dots?.clearDots()
             passCode = ""
-        })
+        }
     }
 
     fun clearPassCode() {

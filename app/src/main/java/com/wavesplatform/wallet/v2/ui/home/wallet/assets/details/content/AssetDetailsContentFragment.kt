@@ -44,10 +44,6 @@ class AssetDetailsContentFragment : BaseFragment(), AssetDetailsContentView {
 
     override fun configLayoutRes() = R.layout.fragment_asset_details_content
 
-    companion object {
-        var BUNDLE_ASSET = "asset"
-    }
-
     override fun onNetworkConnectionChanged(networkConnected: Boolean) {
         super.onNetworkConnectionChanged(networkConnected)
         if (networkConnected) {
@@ -236,5 +232,9 @@ class AssetDetailsContentFragment : BaseFragment(), AssetDetailsContentView {
             }
         }
         cardBurnContainer.visiable()
+    }
+
+    companion object {
+        var BUNDLE_ASSET = "asset"
     }
 }

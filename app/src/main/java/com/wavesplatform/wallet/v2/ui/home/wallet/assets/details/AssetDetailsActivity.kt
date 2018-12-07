@@ -13,11 +13,9 @@ import com.wavesplatform.wallet.R
 import com.wavesplatform.wallet.v2.data.Constants
 import com.wavesplatform.wallet.v2.data.model.remote.response.AssetBalance
 import com.wavesplatform.wallet.v2.ui.base.view.BaseActivity
-import com.wavesplatform.wallet.v2.ui.home.MainActivity
 import com.wavesplatform.wallet.v2.ui.home.wallet.assets.AssetsFragment.Companion.RESULT_NEED_UPDATE
 import com.wavesplatform.wallet.v2.ui.welcome.AlphaScalePageTransformer
 import kotlinx.android.synthetic.main.activity_asset_details.*
-import kotlinx.android.synthetic.main.activity_main_v2.*
 import pers.victor.ext.click
 import pers.victor.ext.dp2px
 import pers.victor.ext.gone
@@ -40,12 +38,6 @@ class AssetDetailsActivity : BaseActivity(), AssetDetailsView {
     lateinit var menu: Menu
 
     override fun configLayoutRes() = R.layout.activity_asset_details
-
-    companion object {
-        var BUNDLE_ASSET_POSITION = "position"
-        var BUNDLE_ASSET_TYPE = "type"
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         overridePendingTransition(R.anim.slide_in_right, R.anim.null_animation)
@@ -197,4 +189,9 @@ class AssetDetailsActivity : BaseActivity(), AssetDetailsView {
     }
 
     override fun needToShowNetworkMessage() = true
+
+    companion object {
+        var BUNDLE_ASSET_POSITION = "position"
+        var BUNDLE_ASSET_TYPE = "type"
+    }
 }

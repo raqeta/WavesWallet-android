@@ -21,19 +21,20 @@ import com.wavesplatform.wallet.v2.util.launchActivity
 import com.wavesplatform.wallet.v2.util.notNull
 import com.wavesplatform.wallet.v2.util.showError
 import kotlinx.android.synthetic.main.fragment_cryptocurrency.*
+import kotlinx.android.synthetic.main.layout_asset_card.*
 import pers.victor.ext.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class CryptoCurrencyFragment : BaseFragment(), CryptocurrencyView {
+class CryptoCurrencyFragment : BaseFragment(), CryptoCurrencyView {
 
     @Inject
     @InjectPresenter
-    lateinit var presenter: CryptocurrencyPresenter
+    lateinit var presenter: CryptoCurrencyPresenter
     private var skeletonView: SkeletonScreen? = null
 
     @ProvidePresenter
-    fun providePresenter(): CryptocurrencyPresenter = presenter
+    fun providePresenter(): CryptoCurrencyPresenter = presenter
 
     override fun configLayoutRes(): Int = R.layout.fragment_cryptocurrency
 
@@ -99,7 +100,7 @@ class CryptoCurrencyFragment : BaseFragment(), CryptocurrencyView {
     }
 
     override fun onShowTunnel(tunnel: GetTunnel?) {
-        skeletonView!!.hide()
+        skeletonView?.hide()
         if (tunnel?.tunnel == null
                 || tunnel.tunnel?.inMin.isNullOrEmpty()
                 || tunnel.tunnel?.currencyFrom.isNullOrEmpty()) {
@@ -110,15 +111,15 @@ class CryptoCurrencyFragment : BaseFragment(), CryptocurrencyView {
         }
 
         val min = BigDecimal(tunnel.tunnel?.inMin).toPlainString()
-        limits.text = getString(R.string.receive_minimum_amount,
+        limits?.text = getString(R.string.receive_minimum_amount,
                 min, tunnel.tunnel?.currencyFrom)
-        warning.text = getString(R.string.receive_warning_will_send,
+        warning?.text = getString(R.string.receive_warning_will_send,
                 min,
                 tunnel.tunnel?.currencyFrom)
-        warning_crypto.text = getString(R.string.receive_warning_crypto, tunnel.tunnel?.currencyFrom)
+        warning_crypto?.text = getString(R.string.receive_warning_crypto, tunnel.tunnel?.currencyFrom)
         presenter.nextStepValidation = true
         needMakeButtonEnable()
-        container_info.visiable()
+        container_info?.visiable()
     }
 
     override fun onShowError(message: String) {
@@ -139,7 +140,13 @@ class CryptoCurrencyFragment : BaseFragment(), CryptocurrencyView {
             assetBalance?.isFavorite!!
         }
 
-        edit_asset.gone()
+        image_down_arrow.visibility = if (assetBalance!!.isGateway && !assetBalance.isWaves()) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        text_asset.gone()
         container_asset.visiable()
 
         presenter.nextStepValidation = true
@@ -157,7 +164,7 @@ class CryptoCurrencyFragment : BaseFragment(), CryptocurrencyView {
 
     private fun assetChangeEnable(enable: Boolean) {
         if (enable) {
-            edit_asset.click { launchAssets() }
+            text_asset.click { launchAssets() }
             container_asset.click { launchAssets() }
             image_change.visibility = View.VISIBLE
             ViewCompat.setElevation(edit_asset_card, dp2px(2).toFloat())
@@ -165,7 +172,7 @@ class CryptoCurrencyFragment : BaseFragment(), CryptocurrencyView {
             edit_asset_card.setCardBackgroundColor(ContextCompat.getColor(
                     activity!!, R.color.white))
         } else {
-            edit_asset.click {
+            text_asset.click {
                 // disable clicks
             }
             container_asset.click {

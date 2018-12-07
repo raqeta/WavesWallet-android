@@ -21,11 +21,6 @@ class ScanSeedFragment : BaseFragment(), ScanSeedView {
     @ProvidePresenter
     fun providePresenter(): ScanSeedPresenter = presenter
 
-
-    companion object {
-        var REQUEST_SCAN_QR_CODE = 55
-    }
-
     override fun configLayoutRes() = R.layout.fragment_scan_seed
 
 
@@ -39,5 +34,9 @@ class ScanSeedFragment : BaseFragment(), ScanSeedView {
                     .initiateScan()
 
         }
+    }
+
+    companion object {
+        var REQUEST_SCAN_QR_CODE = 55
     }
 }

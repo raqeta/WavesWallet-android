@@ -2,7 +2,6 @@ package com.wavesplatform.wallet.v2.ui.home.wallet.leasing.cancel.confirmation
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -33,13 +32,6 @@ class ConfirmationCancelLeasingActivity : BaseActivity(), ConfirmationCancelLeas
         translucentStatusBar = true
         overridePendingTransition(R.anim.slide_in_right, R.anim.null_animation)
         super.onCreate(savedInstanceState)
-    }
-
-    companion object {
-        var REQUEST_CANCEL_LEASING_CONFIRMATION = 60
-        var BUNDLE_CANCEL_CONFIRMATION_LEASING_TX = "cancel_confirmation_leasing_tx"
-        var BUNDLE_ADDRESS = "address"
-        var BUNDLE_AMOUNT = "amount"
     }
 
     override fun onViewReady(savedInstanceState: Bundle?) {
@@ -100,6 +92,13 @@ class ConfirmationCancelLeasingActivity : BaseActivity(), ConfirmationCancelLeas
     override fun onNetworkConnectionChanged(networkConnected: Boolean) {
         super.onNetworkConnectionChanged(networkConnected)
         button_confirm.isEnabled = networkConnected
+    }
+
+    companion object {
+        var REQUEST_CANCEL_LEASING_CONFIRMATION = 60
+        var BUNDLE_CANCEL_CONFIRMATION_LEASING_TX = "cancel_confirmation_leasing_tx"
+        var BUNDLE_ADDRESS = "address"
+        var BUNDLE_AMOUNT = "amount"
     }
 
 }

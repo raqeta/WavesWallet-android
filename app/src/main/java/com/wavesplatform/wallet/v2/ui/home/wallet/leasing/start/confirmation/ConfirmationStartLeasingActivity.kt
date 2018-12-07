@@ -2,7 +2,6 @@ package com.wavesplatform.wallet.v2.ui.home.wallet.leasing.start.confirmation
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -33,12 +32,6 @@ class ConfirmationStartLeasingActivity : BaseActivity(), ConfirmationStartLeasin
         translucentStatusBar = true
         overridePendingTransition(R.anim.slide_in_right, R.anim.null_animation)
         super.onCreate(savedInstanceState)
-    }
-
-    companion object {
-        var BUNDLE_ADDRESS = "address"
-        var BUNDLE_AMOUNT = "amount"
-        var BUNDLE_RECIPIENT_IS_ALIAS = "recipient_is_alias"
     }
 
     override fun onViewReady(savedInstanceState: Bundle?) {
@@ -101,4 +94,9 @@ class ConfirmationStartLeasingActivity : BaseActivity(), ConfirmationStartLeasin
         button_confirm.isEnabled = networkConnected
     }
 
+    companion object {
+        var BUNDLE_ADDRESS = "address"
+        var BUNDLE_AMOUNT = "amount"
+        var BUNDLE_RECIPIENT_IS_ALIAS = "recipient_is_alias"
+    }
 }
