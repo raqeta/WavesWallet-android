@@ -1,5 +1,6 @@
 package com.wavesplatform.wallet.v2.ui.auth.passcode.enter.use_account_password
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -43,8 +44,17 @@ class UseAccountPasswordActivity : BaseActivity(), UseAccountPasswordView {
 
     override fun configLayoutRes() = R.layout.activity_use_account_password
 
+    override fun askPassCode() = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        translucentStatusBar = true
+        overridePendingTransition(R.anim.slide_in_right, R.anim.null_animation)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onViewReady(savedInstanceState: Bundle?) {
+        setStatusBarColor(R.color.white)
+        setNavigationBarColor(R.color.white)
         setupToolbar(toolbar_view, true,
                 icon = R.drawable.ic_toolbar_back_black)
         if (intent.hasExtra(EnterPassCodeActivity.KEY_INTENT_GUID)) {
@@ -102,8 +112,6 @@ class UseAccountPasswordActivity : BaseActivity(), UseAccountPasswordView {
         }
     }
 
-    override fun askPassCode() = false
-
     private fun createDataBundle(): Bundle {
         val options = Bundle()
         options.putBoolean(CreatePassCodeActivity.KEY_INTENT_PROCESS_CHANGE_PASS_CODE, true)
@@ -130,6 +138,14 @@ class UseAccountPasswordActivity : BaseActivity(), UseAccountPasswordView {
                 launchActivity<MainActivity>(clear = true)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_CANCELED, Intent().apply {
+            putExtra(EnterPassCodeActivity.KEY_AFTER_OVER_ATTEMPTS, intent.extras.getBoolean(EnterPassCodeActivity.KEY_AFTER_OVER_ATTEMPTS))
+        })
+        finish()
+        overridePendingTransition(R.anim.null_animation, R.anim.slide_out_right)
     }
 
     companion object {

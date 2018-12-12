@@ -2,6 +2,7 @@ package com.wavesplatform.wallet.v2.ui.language.change_welcome
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -19,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_change_language.*
 import pers.victor.ext.click
 import pers.victor.ext.gone
 import pers.victor.ext.visiable
-import java.util.*
 import javax.inject.Inject
 
 
@@ -46,6 +46,13 @@ class ChangeLanguageActivity : BaseActivity(), LanguageView {
     override fun onViewReady(savedInstanceState: Bundle?) {
         setupToolbar(toolbar_view, true, getString(R.string.profile_language_toolbar_title), R.drawable.ic_toolbar_back_black)
 
+
+        recycle_language.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                appbar_layout.isSelected = recycle_language.canScrollVertically(-1)
+            }
+        })
+
         recycle_language.layoutManager = LinearLayoutManager(this)
         recycle_language.adapter = adapter
         adapter.changeRootPadding = true
@@ -60,10 +67,10 @@ class ChangeLanguageActivity : BaseActivity(), LanguageView {
 
             val languageItemByCode = Language.getLanguageItemByCode(preferencesHelper.getLanguage())
             val positionCurrent = adapter.data.indexOf(languageItemByCode)
-            if (position == positionCurrent){
-                button_save.gone()
-            }else{
-                button_save.visiable()
+            if (position == positionCurrent) {
+                frame_button_save.gone()
+            } else {
+                frame_button_save.visiable()
             }
 
             if (presenter.currentLanguagePosition == -1) {
@@ -89,7 +96,7 @@ class ChangeLanguageActivity : BaseActivity(), LanguageView {
             val item = adapter.getItem(presenter.currentLanguagePosition)
             item.notNull {
                 presenter.saveLanguage(it.language.code)
-                setLanguage(Locale(it.language.code))
+                setLanguage(Language.getLocale(it.language.code))
                 launchActivity<MainActivity>(clear = true)
             }
         }

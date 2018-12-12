@@ -112,11 +112,9 @@ class AccessManager(private var prefs: PrefsUtil, private var appUtil: AppUtil, 
             prefs.setValue(PrefsUtil.KEY_PUB_KEY, wallet!!.publicKeyStr)
             prefs.setValue(PrefsUtil.KEY_WALLET_NAME, walletName)
             prefs.setValue(PrefsUtil.KEY_ENCRYPTED_WALLET, wallet!!.getEncryptedData(password))
-            authHelper.configureDB(wallet?.address)
+            authHelper.configureDB(wallet?.address, guid)
             MigrationUtil.checkOldAddressBook(prefs, loggedInGuid)
-            if (skipBackup) {
-                prefs.setValue(PrefsUtil.KEY_SKIP_BACKUP, true)
-            }
+            prefs.setValue(PrefsUtil.KEY_SKIP_BACKUP, skipBackup)
             return guid
         } catch (e: Exception) {
             Log.e(javaClass.simpleName, "storeWalletData: ", e)
@@ -201,7 +199,7 @@ class AccessManager(private var prefs: PrefsUtil, private var appUtil: AppUtil, 
     fun setWallet(guid: String, password: String) {
         wallet = WavesWallet(getWalletData(guid), password)
         setLastLoggedInGuid(guid)
-        authHelper.configureDB(wallet?.address)
+        authHelper.configureDB(wallet?.address, guid)
         MigrationUtil.checkOldAddressBook(prefs, guid)
     }
 
@@ -278,7 +276,7 @@ class AccessManager(private var prefs: PrefsUtil, private var appUtil: AppUtil, 
             prefs.removeGlobalValue(PrefsUtil.GLOBAL_LAST_LOGGED_IN_GUID)
         }
 
-        deleteRealmDBForAccount(address)
+        deleteRealmDBForAccount(searchWalletGuid)
         clearRealmConfiguration()
     }
 
@@ -360,8 +358,8 @@ class AccessManager(private var prefs: PrefsUtil, private var appUtil: AppUtil, 
         return prefs.getGuidValue(guid, PrefsUtil.KEY_USE_FINGERPRINT, false)
     }
 
-    fun isUseFingerPrint(): Boolean {
-        return prefs.getValue(PrefsUtil.KEY_USE_FINGERPRINT, false)
+    fun isUseFingerPrint(guid: String): Boolean {
+        return prefs.getGuidValue(guid, PrefsUtil.KEY_USE_FINGERPRINT, false)
     }
 
     fun setEncryptedPassCode(guid: String, data: String) {

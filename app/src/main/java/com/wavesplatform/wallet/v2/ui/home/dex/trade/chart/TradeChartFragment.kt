@@ -21,7 +21,7 @@ import com.wavesplatform.wallet.v2.data.Events
 import com.wavesplatform.wallet.v2.data.model.local.ChartTimeFrame
 import com.wavesplatform.wallet.v2.data.model.local.OrderType
 import com.wavesplatform.wallet.v2.data.model.local.WatchMarket
-import com.wavesplatform.wallet.v2.data.model.remote.response.LastTrade
+import com.wavesplatform.wallet.v2.data.model.remote.response.LastTradesResponse
 import com.wavesplatform.wallet.v2.ui.base.view.BaseFragment
 import com.wavesplatform.wallet.v2.ui.custom.CandleTouchListener
 import com.wavesplatform.wallet.v2.ui.custom.OnCandleGestureListener
@@ -49,17 +49,6 @@ class TradeChartFragment : BaseFragment(), TradeChartView, OnCandleGestureListen
     lateinit var presenter: TradeChartPresenter
     var buttonPositive: Button? = null
     private var isLoading = false
-
-    companion object {
-        fun newInstance(watchMarket: WatchMarket?): TradeChartFragment {
-            val args = Bundle()
-            args.classLoader = WatchMarket::class.java.classLoader
-            args.putParcelable(TradeActivity.BUNDLE_MARKET, watchMarket)
-            val fragment = TradeChartFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     @ProvidePresenter
     fun providePresenter(): TradeChartPresenter = presenter
@@ -336,10 +325,10 @@ class TradeChartFragment : BaseFragment(), TradeChartView, OnCandleGestureListen
         bar_chart.moveViewToX(candle_chart.lowestVisibleX)
     }
 
-    override fun successGetTrades(tradesMarket: LastTrade?) {
+    override fun successGetTrades(tradesMarket: LastTradesResponse.Data.ExchangeTransaction?) {
         tradesMarket.notNull {
-            val limitLine = LimitLine(java.lang.Float.valueOf(it.price), "")
-            limitLine.lineColor = if (it.getType() == OrderType.BUY) findColor(R.color.submit300) else findColor(R.color.error400)
+            val limitLine = LimitLine(it.price.toFloat(), "")
+            limitLine.lineColor = if (it.getMyOrder().getType() == OrderType.BUY) findColor(R.color.submit300) else findColor(R.color.error400)
             limitLine.lineWidth = 1f
             limitLine.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
             candle_chart.axisRight.removeAllLimitLines()
@@ -516,5 +505,16 @@ class TradeChartFragment : BaseFragment(), TradeChartView, OnCandleGestureListen
         bar_chart.onDestroy()
         candle_chart.onDestroy()
         super.onDestroyView()
+    }
+
+    companion object {
+        fun newInstance(watchMarket: WatchMarket?): TradeChartFragment {
+            val args = Bundle()
+            args.classLoader = WatchMarket::class.java.classLoader
+            args.putParcelable(TradeActivity.BUNDLE_MARKET, watchMarket)
+            val fragment = TradeChartFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
