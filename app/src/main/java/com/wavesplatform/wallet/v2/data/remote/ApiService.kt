@@ -2,6 +2,7 @@ package com.wavesplatform.wallet.v2.data.remote
 
 import com.wavesplatform.wallet.v2.data.Constants
 import com.wavesplatform.wallet.v2.data.model.remote.response.*
+import com.wavesplatform.wallet.v2.data.model.remote.response.history.Transactions
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -35,4 +36,39 @@ interface ApiService {
                     @Query("interval") timeframe: String,
                     @Query("timeStart") from: Long,
                     @Query("timeEnd") timeEnd: Long): Observable<CandlesResponse>
+
+    @GET("v0/transactions/all")
+    fun transactionsAll(@Query("sender") sender: String,
+                        @Query("timeStart") timeStart: Long,
+                        @Query("timeEnd") timeEnd: Long,
+                        @Query("after") after: Long,
+                        @Query("sort") sort: String,
+                        @Query("limit") limit: Int): Observable<Transactions>
+
+    @GET("v0/transactions/all")
+    fun transactionsAll(@Query("sender") sender: String,
+                        @Query("limit") limit: Int): Observable<Transactions>
+
+    @GET("v0/transactions/all")
+    fun transactionsNextAll(@Query("sender") sender: String,
+                            @Query("limit") limit: Int,
+                            @Query("after") lastCursor: String): Observable<Transactions>
+
+    @GET("v0/transactions/send")
+    fun transactionsSend(@Query("sender") sender: String,
+                             @Query("limit") limit: Int): Observable<Transactions>
+
+    @GET("v0/transactions/send")
+    fun transactionsNextSend(@Query("sender") sender: String,
+                                 @Query("limit") limit: Int,
+                                 @Query("after") lastCursor: String): Observable<Transactions>
+
+    @GET("v0/transactions/exchange")
+    fun transactionsExchange(@Query("sender") sender: String,
+                        @Query("limit") limit: Int): Observable<Transactions>
+
+    @GET("v0/transactions/exchange")
+    fun transactionsNextExchange(@Query("sender") sender: String,
+                                 @Query("limit") limit: Int,
+                                 @Query("after") lastCursor: String): Observable<Transactions>
 }

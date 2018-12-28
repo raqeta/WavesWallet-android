@@ -21,17 +21,13 @@ import com.wavesplatform.wallet.R
 import com.wavesplatform.wallet.v2.data.Constants
 import com.wavesplatform.wallet.v2.data.Events
 import com.wavesplatform.wallet.v2.data.model.remote.response.AssetBalance
-import com.wavesplatform.wallet.v2.data.service.UpdateApiDataService
 import com.wavesplatform.wallet.v2.ui.base.view.BaseFragment
 import com.wavesplatform.wallet.v2.ui.home.MainActivity
-import com.wavesplatform.wallet.v2.ui.home.dex.DexFragment.Companion.REQUEST_SORTING
-import com.wavesplatform.wallet.v2.ui.home.dex.DexFragment.Companion.RESULT_NEED_UPDATE
 import com.wavesplatform.wallet.v2.ui.home.history.tab.HistoryTabFragment
 import com.wavesplatform.wallet.v2.ui.home.wallet.address.MyAddressQRActivity
 import com.wavesplatform.wallet.v2.ui.home.wallet.assets.details.AssetDetailsActivity
 import com.wavesplatform.wallet.v2.ui.home.wallet.assets.sorting.AssetsSortingActivity
 import com.wavesplatform.wallet.v2.util.RxUtil
-import com.wavesplatform.wallet.v2.util.isMyServiceRunning
 import com.wavesplatform.wallet.v2.util.launchActivity
 import com.wavesplatform.wallet.v2.util.notNull
 import kotlinx.android.synthetic.main.fragment_assets.*
@@ -39,9 +35,7 @@ import kotlinx.android.synthetic.main.wallet_header_item.view.*
 import pers.victor.ext.dp2px
 import pers.victor.ext.gone
 import pers.victor.ext.isVisible
-import pers.victor.ext.toast
 import pyxis.uzuki.live.richutilskt.utils.runDelayed
-import pyxis.uzuki.live.richutilskt.utils.runOnUiThread
 import javax.inject.Inject
 
 
@@ -206,15 +200,6 @@ class AssetsFragment : BaseFragment(), AssetsView {
 
     override fun afterFailedUpdateAssets() {
         swipe_container?.isRefreshing = false
-    }
-
-    override fun startServiceToLoadData(assets: ArrayList<AssetBalance>) {
-        runOnUiThread {
-            if (!isMyServiceRunning(UpdateApiDataService::class.java)) {
-                val intent = Intent(baseActivity, UpdateApiDataService::class.java)
-                baseActivity.startService(intent)
-            }
-        }
     }
 
     override fun afterSuccessLoadAssets(assets: ArrayList<MultiItemEntity>, fromDB: Boolean, withApiUpdate: Boolean) {

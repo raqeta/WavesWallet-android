@@ -3,11 +3,16 @@ package com.wavesplatform.wallet.v2.data.manager
 import com.vicpin.krealmextensions.queryFirst
 import com.vicpin.krealmextensions.save
 import com.vicpin.krealmextensions.saveAll
+import com.wavesplatform.wallet.App
 import com.wavesplatform.wallet.v1.util.PrefsUtil
 import com.wavesplatform.wallet.v2.data.Constants
 import com.wavesplatform.wallet.v2.data.manager.base.BaseDataManager
 import com.wavesplatform.wallet.v2.data.model.local.WatchMarket
-import com.wavesplatform.wallet.v2.data.model.remote.response.*
+import com.wavesplatform.wallet.v2.data.model.remote.response.Alias
+import com.wavesplatform.wallet.v2.data.model.remote.response.AssetInfo
+import com.wavesplatform.wallet.v2.data.model.remote.response.CandlesResponse
+import com.wavesplatform.wallet.v2.data.model.remote.response.LastTradesResponse
+import com.wavesplatform.wallet.v2.data.model.remote.response.history.Transactions
 import com.wavesplatform.wallet.v2.util.notNull
 import io.reactivex.Observable
 import pers.victor.ext.currentTimeMillis
@@ -112,6 +117,36 @@ class ApiDataManager @Inject constructor() : BaseDataManager() {
                 .map {
                     return@map it.candles.sortedBy { it.time }
                 }
+    }
+
+    fun loadTransactionsAll(): Observable<Transactions> {
+        return apiService.transactionsAll(
+                App.getAccessManager().getWallet()?.address!!, 100)
+    }
+
+    fun loadNextTransactionsAll(lastCursor: String): Observable<Transactions> {
+        return apiService.transactionsNextAll(
+                App.getAccessManager().getWallet()?.address!!, 100, lastCursor)
+    }
+
+    fun loadTransactionsSend(): Observable<Transactions> {
+        return apiService.transactionsSend(
+                App.getAccessManager().getWallet()?.address!!, 100)
+    }
+
+    fun loadNextTransactionsSend(lastCursor: String): Observable<Transactions> {
+        return apiService.transactionsNextSend(
+                App.getAccessManager().getWallet()?.address!!, 100, lastCursor)
+    }
+
+    fun loadTransactionsExchange(): Observable<Transactions> {
+        return apiService.transactionsExchange(
+                App.getAccessManager().getWallet()?.address!!, 100)
+    }
+
+    fun loadNextTransactionsExchange(lastCursor: String): Observable<Transactions> {
+        return apiService.transactionsNextExchange(
+                App.getAccessManager().getWallet()?.address!!, 100, lastCursor)
     }
 
 }

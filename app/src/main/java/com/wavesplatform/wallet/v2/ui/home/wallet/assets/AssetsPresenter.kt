@@ -19,7 +19,6 @@ import io.reactivex.schedulers.Schedulers
 import pers.victor.ext.app
 import pyxis.uzuki.live.richutilskt.utils.runAsync
 import pyxis.uzuki.live.richutilskt.utils.runOnUiThread
-import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
@@ -38,9 +37,6 @@ class AssetsPresenter @Inject constructor() : BasePresenter<AssetsView>() {
                     .doOnNext { postSuccess(it, withApiUpdate, true) }
                     .flatMap { tryUpdateWithApi(withApiUpdate, dbAssets) }
                     .map {
-                        // start update service if need
-                        viewState.startServiceToLoadData(ArrayList(it))
-
                         // update settings of spam list and send event to update
                         if (prefsUtil.getValue(PrefsUtil.KEY_NEED_UPDATE_TRANSACTION_AFTER_CHANGE_SPAM_SETTINGS, false)) {
                             rxEventBus.post(Events.SpamFilterUrlChanged(true))

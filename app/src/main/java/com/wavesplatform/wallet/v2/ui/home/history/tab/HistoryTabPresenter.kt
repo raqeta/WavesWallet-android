@@ -4,21 +4,20 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.vicpin.krealmextensions.queryAllAsSingle
 import com.vicpin.krealmextensions.queryAsSingle
-import com.wavesplatform.wallet.R
-import com.wavesplatform.wallet.v1.db.TransactionSaver
+import com.vicpin.krealmextensions.saveAll
 import com.wavesplatform.wallet.v2.data.Constants
 import com.wavesplatform.wallet.v2.data.model.local.HistoryItem
 import com.wavesplatform.wallet.v2.data.model.local.Language
 import com.wavesplatform.wallet.v2.data.model.local.LeasingStatus
 import com.wavesplatform.wallet.v2.data.model.remote.response.AssetBalance
 import com.wavesplatform.wallet.v2.data.model.remote.response.Transaction
+import com.wavesplatform.wallet.v2.data.model.remote.response.history.Transactions
 import com.wavesplatform.wallet.v2.ui.base.presenter.BasePresenter
 import com.wavesplatform.wallet.v2.ui.home.wallet.assets.details.content.AssetDetailsContentPresenter
+import com.wavesplatform.wallet.v2.util.RxUtil
+import com.wavesplatform.wallet.v2.util.TransactionUtil
 import com.wavesplatform.wallet.v2.util.isWavesId
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import pyxis.uzuki.live.richutilskt.utils.runAsync
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -30,26 +29,98 @@ class HistoryTabPresenter @Inject constructor() : BasePresenter<HistoryTabView>(
     var type: String? = "all"
     var hashOfTimestamp = hashMapOf<Long, Long>()
     var assetBalance: AssetBalance? = null
+    var lastCursor = ""
 
     @Inject
-    lateinit var transactionSaver: TransactionSaver
+    lateinit var transactionUtil: TransactionUtil
 
     fun loadTransactions() {
-        runAsync {
-            addSubscription(loadFromDb()
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ list ->
-                        if (list.isEmpty()) {
-                            loadLastTransactions()
-                        } else {
-                            viewState.afterSuccessLoadTransaction(list, type)
-                        }
+        when (type) {
+            HistoryTabFragment.all -> addSubscription(apiDataManager.loadTransactionsAll()
+                    .toList().toObservable()
+                    .compose(RxUtil.applyObservableDefaultSchedulers())
+                    .subscribe({
+                        onSuccessLoad(it)
                     }, {
-                        viewState.onShowError(R.string.history_error_receive_data)
                         it.printStackTrace()
-                    }))
+                    })
+            )
+            HistoryTabFragment.send -> addSubscription(apiDataManager.loadTransactionsSend()
+                    .toList().toObservable()
+                    .compose(RxUtil.applyObservableDefaultSchedulers())
+                    .subscribe({
+                        onSuccessLoad(it)
+                    }, {
+                        it.printStackTrace()
+                    })
+            )
+            HistoryTabFragment.exchanged -> addSubscription(apiDataManager.loadTransactionsExchange()
+                    .toList().toObservable()
+                    .compose(RxUtil.applyObservableDefaultSchedulers())
+                    .subscribe({
+                        onSuccessLoad(it)
+                    }, {
+                        it.printStackTrace()
+                    })
+            )
+            else -> {
+                /*runAsync {
+                addSubscription(loadFromDb()
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ list ->
+                            if (list.isEmpty()) {
+                                // loadLastTransactions()
+                            } else {
+                                viewState.afterSuccessLoadTransaction(list, type)
+                            }
+                        }, {
+                            viewState.onShowError(R.string.history_error_receive_data)
+                            it.printStackTrace()
+                        }))
+            }*/
+            }
         }
+    }
+
+    fun loadNextHistory() {
+        when (type) {
+            HistoryTabFragment.all -> addSubscription(apiDataManager.loadNextTransactionsAll(lastCursor)
+                    .toList().toObservable()
+                    .compose(RxUtil.applyObservableDefaultSchedulers())
+                    .subscribe({
+                        onSuccessLoad(it)
+                    }, {
+                        it.printStackTrace()
+                    })
+            )
+            HistoryTabFragment.send -> addSubscription(apiDataManager.loadNextTransactionsSend(lastCursor)
+                    .toList().toObservable()
+                    .compose(RxUtil.applyObservableDefaultSchedulers())
+                    .subscribe({
+                        onSuccessLoad(it)
+                    }, {
+                        it.printStackTrace()
+                    })
+            )
+            HistoryTabFragment.all -> addSubscription(apiDataManager.loadNextTransactionsExchange(lastCursor)
+                    .toList().toObservable()
+                    .compose(RxUtil.applyObservableDefaultSchedulers())
+                    .subscribe({
+                        onSuccessLoad(it)
+                    }, {
+                        it.printStackTrace()
+                    })
+            )
+        }
+    }
+
+    private fun onSuccessLoad(data: MutableList<Transactions>) {
+        val transactions = Transactions.convert(transactionUtil, data[0].data)
+        transactions.saveAll()
+        val items = sortAndConfigToUi(true, transactions)
+        lastCursor = data[0].lastCursor
+        viewState.afterSuccessLoadAddTransaction(items, type)
     }
 
     private fun loadFromDb(): Single<ArrayList<HistoryItem>> {
@@ -114,7 +185,7 @@ class HistoryTabPresenter @Inject constructor() : BasePresenter<HistoryTabView>(
                 filterDetailed(transitions, assetBalance!!.assetId)
                         .sortedByDescending { transaction -> transaction.timestamp }
             }
-            return@map sortAndConfigToUi(allItemsFromDb)
+            return@map sortAndConfigToUi(true, allItemsFromDb)
         }
     }
 
@@ -126,24 +197,10 @@ class HistoryTabPresenter @Inject constructor() : BasePresenter<HistoryTabView>(
         }
     }
 
-    fun loadLastTransactions() {
-        addSubscription(nodeDataManager.loadLightTransactions()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ list ->
-                    if (list.isEmpty()) {
-                        viewState.afterSuccessLoadTransaction(arrayListOf(), type)
-                    } else {
-                        transactionSaver.saveTransactions(list)
-                    }
-                }, {
-                    viewState.onShowError(R.string.history_error_receive_data)
-                    it.printStackTrace()
-                }))
-    }
-
-    private fun sortAndConfigToUi(it: List<Transaction>): ArrayList<HistoryItem> {
-        init()
+    private fun sortAndConfigToUi(needInit: Boolean, it: List<Transaction>): ArrayList<HistoryItem> {
+        if (needInit) {
+            init()
+        }
 
         val dateFormat = SimpleDateFormat("MMMM dd, yyyy",
                 Language.getLocale(preferenceHelper.getLanguage()))

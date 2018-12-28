@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.loadmore.LoadMoreView
 import com.ethanhua.skeleton.RecyclerViewSkeletonScreen
 import com.ethanhua.skeleton.Skeleton
 import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration
@@ -18,10 +19,8 @@ import com.wavesplatform.wallet.v2.ui.home.MainActivity
 import com.wavesplatform.wallet.v2.ui.home.history.HistoryFragment
 import com.wavesplatform.wallet.v2.ui.home.history.details.HistoryDetailsBottomSheetFragment
 import com.wavesplatform.wallet.v2.util.notNull
-import com.wavesplatform.wallet.v2.util.showError
 import kotlinx.android.synthetic.main.fragment_history_tab.*
 import pers.victor.ext.inflate
-import pyxis.uzuki.live.richutilskt.utils.runAsync
 import java.util.*
 import javax.inject.Inject
 
@@ -56,7 +55,7 @@ class HistoryTabFragment : BaseFragment(), HistoryTabView {
 
 
         swipe_refresh.setColorSchemeResources(R.color.submit400)
-        swipe_refresh.setOnRefreshListener { presenter.loadLastTransactions() }
+        swipe_refresh.setOnRefreshListener { presenter.loadTransactions() }
         layoutManager = SpeedyLinearLayoutManager(baseActivity)
         recycle_history.layoutManager = layoutManager
         recycle_history.adapter = adapter
@@ -66,6 +65,9 @@ class HistoryTabFragment : BaseFragment(), HistoryTabView {
 
         adapter.bindToRecyclerView(recycle_history)
         adapter.emptyView = inflate(R.layout.layout_empty_data)
+        adapter.setOnLoadMoreListener({
+            presenter.loadNextHistory()
+        }, recycle_history)
 
 
         skeletonScreen = Skeleton.bind(recycle_history)
@@ -106,6 +108,24 @@ class HistoryTabFragment : BaseFragment(), HistoryTabView {
         presenter.loadTransactions()
 
         adapter.setEmptyView(R.layout.layout_empty_data)
+        val loadMoreView = object : LoadMoreView() {
+            override fun getLayoutId(): Int {
+                return R.layout.layout_load_more
+            }
+
+            override fun getLoadingViewId(): Int {
+                return R.id.load_more_loading_view
+            }
+
+            override fun getLoadEndViewId(): Int {
+                return R.id.load_more_load_end_view
+            }
+
+            override fun getLoadFailViewId(): Int {
+                return R.id.load_more_load_fail_view
+            }
+        }
+        adapter.setLoadMoreView(loadMoreView)
         adapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (position == 0) return@OnItemClickListener // handle click on empty space
 
@@ -142,6 +162,15 @@ class HistoryTabFragment : BaseFragment(), HistoryTabView {
         adapter.setNewData(data)
         skeletonScreen.notNull { it.hide() }
         swipe_refresh.isRefreshing = false
+    }
+
+    override fun afterSuccessLoadAddTransaction(data: ArrayList<HistoryItem>, type: String?) {
+        val last = adapter.data.size
+        adapter.addData(adapter.data.size, data)
+        adapter.loadMoreComplete()
+        skeletonScreen.notNull { it.hide() }
+        swipe_refresh.isRefreshing = false
+        recycle_history.scrollToPosition(last)
     }
 
     override fun onShowError(res: Int) {
