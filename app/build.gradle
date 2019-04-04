@@ -183,7 +183,8 @@ ext {
 }
 
 dependencies {
-    implementation project(':wavesplatform')
+    //implementation project(':wavesplatform')
+    implementation(name:'wavesplatform-release', ext:'aar')
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$supportVersion"
@@ -365,6 +366,7 @@ repositories {
     maven { url "https://maven.google.com" }
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url "https://maven.fabric.io/public" }
+    flatDir { dirs 'libs' }
 }
 
 // This must remain at the bottom of this file until Google work out a better way to do this

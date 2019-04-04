@@ -32,6 +32,8 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.wavesplatform.sdk.Wavesplatform
+import com.wavesplatform.sdk.net.OnErrorListener
+import com.wavesplatform.sdk.net.RetrofitException
 import com.wavesplatform.wallet.App
 import com.wavesplatform.wallet.R
 import com.wavesplatform.wallet.v2.util.PrefsUtil
@@ -137,7 +139,11 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView, BaseMvpView, Has
                     it.printStackTrace()
                 }))
 
-        Wavesplatform.setCallAdapterFactory(RxErrorHandlingCallAdapterFactory(mErrorManager))
+        Wavesplatform.setOnErrorListener(object : OnErrorListener {
+            override fun onError(exception: RetrofitException) {
+                // Handle by RetrofitException.Type
+            }
+        })
     }
 
     protected fun checkInternet() {
