@@ -46,7 +46,8 @@ class MainPresenter @Inject constructor() : BasePresenter<MainView>() {
                             Constants.ID_MASS_RECEIVE_TYPE))
                 }
             } else {
-                if (prefsUtil.getValue(PrefsUtil.KEY_ENABLE_SPAM_FILTER, true)) {
+                val enableSpamFilter = prefsUtil.getValue(PrefsUtil.KEY_ENABLE_SPAM_FILTER, true)
+                if (!enableSpamFilter) {
                     queryAsSingle {
                         `in`("transactionTypeId", arrayOf(
                                 Constants.ID_RECEIVED_TYPE,

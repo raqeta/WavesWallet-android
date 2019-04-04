@@ -45,6 +45,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.novoda.simplechromecustomtabs.SimpleChromeCustomTabs
 import com.vicpin.krealmextensions.queryFirst
+import com.wavesplatform.sdk.net.RetrofitException
 import com.wavesplatform.sdk.utils.Constants
 import com.wavesplatform.sdk.net.model.response.AssetBalance
 import com.wavesplatform.sdk.net.model.response.ErrorResponse
@@ -53,7 +54,6 @@ import com.wavesplatform.sdk.utils.EnvironmentManager
 import com.wavesplatform.sdk.utils.notNull
 import com.wavesplatform.wallet.App
 import com.wavesplatform.wallet.R
-import com.wavesplatform.wallet.v2.data.exception.RetrofitException
 import com.wavesplatform.wallet.v2.data.model.db.AssetBalanceDb
 import com.wavesplatform.wallet.v2.data.model.db.SpamAssetDb
 import com.wavesplatform.wallet.v2.ui.home.wallet.assets.AssetsAdapter
@@ -597,8 +597,12 @@ fun Context.showAlertAboutScriptedAccount(buttonOnClickListener: () -> Unit = { 
 }
 
 fun isSpamConsidered(assetId: String?, prefsUtil: PrefsUtil): Boolean {
+    return (prefsUtil.getValue(PrefsUtil.KEY_ENABLE_SPAM_FILTER, true)
+            && isSpam(assetId))
+}
+
+fun isSpam(assetId: String?): Boolean {
     return (App.getAccessManager().getWallet() != null
-            && prefsUtil.getValue(PrefsUtil.KEY_ENABLE_SPAM_FILTER, true)
             && (null != queryFirst<SpamAssetDb> { equalTo("assetId", assetId) }))
 }
 
