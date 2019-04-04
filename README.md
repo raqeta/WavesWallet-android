@@ -24,3 +24,4 @@ _Please see the [issues](https://github.com/wavesplatform/WavesWallet-android/is
 
 <a href="https://wavesplatform.com/" target="_blank"><img src="https://cdn.worldvectorlogo.com/logos/waves-6.svg" 
 alt="wavesplatform" width="113" height="24" border="0" /></a>
+# Netology
